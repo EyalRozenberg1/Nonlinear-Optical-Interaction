@@ -1,0 +1,19 @@
+
+w0 	    = sqrt(2)*1/sqrt(xi)*sqrt(1064.2e-9*L/(2*pi*1.6053))
+xi 	    = 2.84
+
+TempGrad    = Const
+Pump 	    = Depleted
+T.pm 	    = 149.4695;
+
+L 	    = 5e-2
+
+Lus:
+PinAvg      = 30e-3;
+f           = 10K;
+Pulse_wdt   = 5e-9;
+
+for current simulation:
+samples     = 400;
+dx_prop     = 5e-7;
+

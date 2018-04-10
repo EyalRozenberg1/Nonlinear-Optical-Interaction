@@ -1,0 +1,19 @@
+w0 	    = 95e-6 [m]
+xi 	    = 1;
+T.pm        = 149.4695;
+TempGrad    = exp_5X5x50
+
+Pump 	    = Depleted
+
+L 	    = 5e-2
+Alpha Las:
+PinAvg      = 100e-3;
+f           = 100;
+Pulse_wdt   = 1e-9;
+
+for current simulation:
+samples     = 200;
+dx_prop     = 5e-6;
+
+Note: There are two results for different gradients.
+      we can see that the result with T=159.0184 to 139.9206 gave better intensity pattern of conversion

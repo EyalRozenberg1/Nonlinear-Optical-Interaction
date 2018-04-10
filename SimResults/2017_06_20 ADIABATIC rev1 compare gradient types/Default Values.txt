@@ -1,0 +1,20 @@
+This is to compare the results with the gradient in simulation results of 2017_06_15
+
+w0 	    = 95e-6 [m]
+TempGrad    = 1. Linear
+	      2. Apodized
+Pump 	    = Depleted
+T.pm 	    = 149.4695;
+
+L 	    = 5e-2
+Alpha Las:
+PinAvg      = 100e-3;
+f           = 100;
+Pulse_wdt   = 1e-9;
+
+for current simulation:
+samples     = 200;
+dx_prop     = 5e-6;
+
+Notes: For the Efficiency vs GradDiff we can see that we dont get maximum at const temperature, this is as a results of T.pm mismatch. 
+       The value was chosen to be close but not accurate

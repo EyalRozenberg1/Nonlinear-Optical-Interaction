@@ -1,0 +1,22 @@
+This is in order to comaper with Cherecterization of 2017_05_28 after checking the 
+real waists (w0) in the experiment
+(To check if there is an error with its experiment calculation)
+
+w0 	    = 45.5*sqrt(2)*1e-6
+xi 	    = 1
+
+TempGrad    = Const
+Pump 	    = Depleted
+T.pm 	    = 149.2574
+
+L 	    = 5e-2
+
+Lus:
+PinAvg      = 30e-3;
+f           = 10K;
+Pulse_wdt   = 5e-9;
+
+for current simulation:
+samples     = 200;
+dx_prop     = 5e-6;
+

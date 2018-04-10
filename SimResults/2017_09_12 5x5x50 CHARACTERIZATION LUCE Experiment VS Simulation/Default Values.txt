@@ -1,0 +1,23 @@
+Experiment 05_09_17:
+w0 	    = 49e-6
+TempGrad    = Const
+Crystal     = Crystal 5x5x50 mm eksma 2A641
+Laser       = Luce
+offset   = -0.3; % For P2w vs T
+
+
+Simulation:
+w0 	    = 49e-6
+TempGrad    = Const
+Pump 	    = Depleted
+L 	    = 5e-2
+
+PinAvg      = 29.20e-3;
+f           = 10K;
+Pulse_wdt   = 5e-9 to 8e-9;
+
+
+for current simulation:
+samples     = 200;
+dx_prop     = 5e-6;
+
