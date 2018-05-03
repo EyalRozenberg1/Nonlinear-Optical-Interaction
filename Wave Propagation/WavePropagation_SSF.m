@@ -13,7 +13,6 @@ tic
                 
                 % Initialize waves at the start of crystal
                 A.in1(1)   = A_from_I(I.in1,n.in1(1));
-                A.out(1)   = A_from_I(I.out,n.out(1));
                 for i=2:length(CrystalPropAxis)
                     % General Definitions
                     KappaIn  = Kappa(deff,Omega.in1,K.in1,i);
@@ -61,7 +60,6 @@ tic
                 b.in1          = b_(Kin1, w0.in1);
                 
                 x_waist        = x_max/2; % [m] waists location in the crystal
-                Points_waist   = round(x_waist/dx_prop); % % waists point number in the propadation points
                 chi_           = @(B) 2*(0-x_waist)/B;
                 chi.in1        = chi_(b.in1);
                 
@@ -112,7 +110,6 @@ tic
                     Kappaout = Kappa(deff,Omega.out,K.out,i);
                     
                     xi    = i * dx_prop;% changed
-%                     xi    = ( i - Points_waist ) * dx_prop;
                     dAin1 = 2*KappaIn*Aout.*conj(Ain1)*exp( -1i*DeltaK(i)*xi );
                     dAout = Kappaout*Ain1.^2*exp( 1i*DeltaK(i)*xi );
                     
