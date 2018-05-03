@@ -10,50 +10,16 @@ set(0,'DefaultTextFontName','times')
 if (printBW)
     figNum = figNum + 1;
     FigHandle = figure(figNum);set(gcf,'color','white');
-    % set(FigHandle, 'Position', [83 374 576 512]);
-    % get bounds
-    xmaxa = max(DeltaK);        % DeltaK L
-    xmaxb = max(Lambda.in1);    % Lambda
-    xmina = min(DeltaK);        % DeltaK L
-    xminb = min(Lambda.in1);    % Lambda
     
-    % axis for Lambda
-    b=axes('Position',[.1 .1 .8 1e-12]);
-    set(b,'Units','normalized');
-    set(b,'Color','none');
+    plot(Lambda.in1, Efficiency,'b*-','Linewidth',2);
+    xlim([min(Lambda.in1) max(Lambda.in1)]);
     
-    % axis for DeltaK*L
-    a=axes('Position',[.1 .2 .8 .7]);
-    set(a,'Units','normalized');
+    xlabel('\lambda_p_u_m_p [m]');
+    ylabel('Conversion Efficiency');
     
-%     plot(a,DeltaK, Efficiency,'b*-','Linewidth',2);
-    plot(a,DeltaK, Efficiency,'b-','Linewidth',2);
-    set(a,'xlim',[xmina xmaxa]);
-    set(b,'xlim',[xminb xmaxb]);
-    
-    xlabel(a,'\DeltaK\bulletL');
-    xlabel(b,'Fundamental Wavelength [m]');
-    ylabel(a,'Conversion Efficiency');
-%     str = sprintf('Conversion Efficiency for %s, P_I_n= %s W',InteractionType, num2str(PinPeak));
-%     title(a,str);
-    title(['Conversion Efficiency for ',InteractionType,' P_I_n= ',num2str(PinPeak),' W']);
+    title(['Conversion Efficiency vs \lambda for ',InteractionType,' P_I_n= ',num2str(PinPeak),' W']);
     [M,S] = max(Efficiency);
-    text(DeltaK(S), Efficiency(S), {['\leftarrow \eta= ', num2str(M),' ,\DeltaK\bulletL= ',num2str(DeltaK(S))] ...
-                                    ['                          \lambda= ', num2str(Lambda.in1(S))]});
-    % set data cursor
-    dcm_obj = datacursormode(FigHandle);
-    set(dcm_obj,'UpdateFcn',{
-        @myupdatefcn2, 	...
-        Lambda.in1});
-    
-%     plot(Lambda.in1,Efficiency);
-%     str = sprintf('Conversion Efficiency for %s, P_I_n= %s W',InteractionType, num2str(PinPeak));
-%     title(str);
-%     ylabel('Conversion Efficiency');
-%     xlabel('Input Wavelength [m]');
-%     [M,S] = max(Efficiency);
-%     text(Lambda.in1(S), Efficiency(S), ['\leftarrow \eta= ', num2str(M),' ,\lambda= ',num2str(Lambda.in1(S))]);
-
+    text(Lambda.in1(S),Efficiency(S), {['\leftarrow \eta= ', num2str(M),' ,\lambda= ', num2str(Lambda.in1(S))]});
 
 elseif(Print.P2w_vs_Temp)
     figNum = figNum + 1;
@@ -67,47 +33,32 @@ elseif(Print.P2w_vs_Temp)
     xlabel('T [^\circC]');
     xlim([T(1) T(end)])
     [M,S] = max(Efficiency);
-    text(T(S), Efficiency(S), ['\leftarrow = ', num2str(M),' ,T = ',num2str(T(S))]);
+    text(T(S), Efficiency(S), {['\leftarrow \eta= ', num2str(M),' ,T = ',num2str(T(S))] ['  \DeltaK\bulletL = ',num2str(DeltaK(S))]});
+    
+    % set data cursor
+    dcm_obj = datacursormode(FigHandle);
+    set(dcm_obj,'UpdateFcn',{
+        @myupdatefcn2, 	...
+        DeltaK});
+    
     
 elseif(Print.P2w_vs_GradDiff)
 	figNum = figNum + 1;
     FigHandle = figure(figNum);set(gcf,'color','white');
-    % set(FigHandle, 'Position', [83 374 576 512]);
-    % get bounds
-    xmaxa = max(DeltaK);% DeltaK L
-    xmaxb = max(2*T);     % Temperature
-    xmina = min(DeltaK);% DeltaK L
-    xminb = min(2*T);     % Temperature
     
-    % axis for Temperature
-    b=axes('Position',[.1 .1 .8 1e-12]);
-    set(b,'Units','normalized');
-    set(b,'Color','none');
+    plot(2*T, Efficiency,'b*-','Linewidth',2);
+    xlim([min(2*T) max(2*T)]);
     
-    % axis for DeltaK*L
-    a=axes('Position',[.1 .2 .8 .7]);
-    set(a,'Units','normalized');
-    
-    plot(a,DeltaK, Efficiency,'b*-','Linewidth',2);
-    set(a,'xlim',[xmina xmaxa]);
-    set(b,'xlim',[xminb xmaxb]);
-    
-    xlabel(a,'\DeltaK\bulletL');
-    xlabel(b,'\DeltaT [^\circC]');
-    ylabel(a,'Conversion Efficiency');
+    xlabel('\DeltaT [^\circC]');
+    ylabel('Conversion Efficiency');
 
-    title(['Conversion Efficiency Vs \DeltaK for ',InteractionType,', P_I_n= ',num2str(PinPeak),' W']);
+    title(['Conversion Efficiency Vs \DeltaT for ',InteractionType,', P_I_n= ',num2str(PinPeak),' W']);
 
     [M,S] = max(Efficiency);
-    text(DeltaK(S), Efficiency(S), {['\leftarrow \eta= ', num2str(M),' ,\DeltaK\bulletL= ',num2str(DeltaK(S))] ...
-                                    ['                          \DeltaT= ', num2str(2*T(S))]});
-    % set data cursor
-    dcm_obj = datacursormode(FigHandle);
-    set(dcm_obj,'UpdateFcn',{
-        @myupdatefcn3, 	...
-        2*T});
+    text(2*T(S), Efficiency(S), {['\leftarrow \eta= ', num2str(M),' ,\DeltaT= ', num2str(2*T(S))]});
 
-    elseif(Print.P2wVsTm)
+
+elseif(Print.P2wVsTm)
 	figNum = figNum + 1;
     FigHandle = figure(figNum);set(gcf,'color','white');
     % set(FigHandle, 'Position', [83 374 576 512]);
@@ -122,11 +73,6 @@ elseif(Print.P2w_vs_GradDiff)
 
     [M,S] = max(Efficiency);
     text(T(S), Efficiency(S), {['\leftarrow \eta= ', num2str(M),' ,Tm= ',num2str(T(S))]});
-    % set data cursor
-    dcm_obj = datacursormode(FigHandle);
-    set(dcm_obj,'UpdateFcn',{
-        @myupdatefcn3, 	...
-        2*T});
 
     
 elseif(Print.P2wVsw0)
@@ -435,24 +381,24 @@ else
 end
 
 
-    function txt = myupdatefcn2(~,event_obj,Lambda_in1)
+    function txt = myupdatefcn2(~,event_obj,DeltaK_L)
         % Customizes text of data tips
         pos = get(event_obj,'Position');
         loc   = get(event_obj,'DataIndex');
         txt = {
             ['Efficieny: ',num2str(pos(2))]                     ,...
-            ['DeltaK*L: ',num2str(pos(1))]                     ,...
-            ['Lambda: ',num2str(Lambda_in1(loc))]};
+            ['T: ',num2str(pos(1))]                     ,...
+            ['DeltaK*L: ',num2str(DeltaK_L(loc))]};
     end % function myupdatefcn2
 
-function txt = myupdatefcn3(~,event_obj,Lambda_in1)
+function txt = myupdatefcn3(~,event_obj,DeltaK_L)
         % Customizes text of data tips
         pos = get(event_obj,'Position');
         loc   = get(event_obj,'DataIndex');
         txt = {
             ['Efficieny: ',num2str(pos(2))]                     ,...
-            ['DeltaK*L: ',num2str(Lambda_in1(loc))]             ,...
-            ['DeltaT: ',num2str(pos(1))]};
+            ['DeltaT: ',num2str(pos(1))]             ,...
+            ['DeltaK*L: ',num2str(DeltaK_L(loc))]};
     end % function myupdatefcn3
 
 end

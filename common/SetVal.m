@@ -31,7 +31,7 @@ k           = @(n, lambda)              n.*2*pi/lambda;
 w           = @(lambda)                 2*pi*c/lambda;
 refIdx      = @(pol, lambda, temp)      n_lbo_Kato(pol, lambda, temp);
 % refIdx      = @(pol, lambda, temp)      n_lbo_Ghosh(pol, lambda, temp);
-Kappa       = @(d_eff,w_,k_,r)          1i*w_^2*d_eff/(k_(r)*c^2)*Attenuation;
+Kappa       = @(d_eff,w_,k_,r)          1i*w_^2*d_eff./(k_(r)*c^2)*Attenuation;
 
 % according to boyd pg. 98 equation 2.7.39:
 A_from_I    = @(intensity,n)       sqrt(intensity/(2*n*eps0*c));

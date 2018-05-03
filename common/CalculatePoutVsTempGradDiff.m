@@ -9,7 +9,7 @@ DeltaT = linspace(-(T.max-T.min),(T.max-T.min),GradSamples);
 
 % h           = waitbar(0,'calculating P2\omega vs T');
 Efficiency          = zeros(1,GradSamples);  % Memmory Allocation
-DeltaKAxis          = zeros(1,GradSamples);  % Memmory Allocation
+DeltaKL          = 0;%zeros(1,GradSamples);  % Memmory Allocation
 
 t.pm  = T.pm;
 for diff=1:GradSamples
@@ -23,14 +23,14 @@ for diff=1:GradSamples
     % Create Delta K
     [DeltaK, K, n, Omega] = DeltaK_Creator(TempGrad, InteractionType, Lambda, Pol, refIdx, k, w);
 
-    DeltaKAxis(diff) = (DeltaK(end) - DeltaK(1))*L;
+%     DeltaKL(diff) = (DeltaK(end) - DeltaK(1))*L;
     
     % plane wave propagation using Split Step Fourier 
     [A, P] = WavePropagation_SSF(Undepleted, Lambda, w0, NumOfPoints, PlaneGauss_, dx_prop, CrystalPropAxis, DeltaK, K, Omega, n, I, InteractionType, deff, A_from_I, Kappa, P_from_A, samples);
 
     % intensity at the end of the crystal %
     if(PlaneGauss_)
-        AoutPower2  = A.out.*conj(A.out); AoutPower2  = AoutPower2(:,1).';
+        AoutPower2  = A.out.*conj(A.out);
         IOut        = 2*eps0*c*n.out.*AoutPower2;
         Efficiency(diff) = IOut(end)/I.in1;
     else
@@ -46,7 +46,7 @@ end
 
 % close(h);
 % Print results
-[figNum] = PrintResults(PinPeak, PlaneGauss_, figNum, 0, DeltaKAxis, Efficiency, Lambda, DeltaT, 0, 0, 0, I, 0, InteractionType, Print, NumOfPoints, 0, 0, 0, 0);
+[figNum] = PrintResults(PinPeak, PlaneGauss_, figNum, 0, DeltaKL, Efficiency, Lambda, DeltaT, 0, 0, 0, I, 0, InteractionType, Print, NumOfPoints, 0, 0, 0, 0);
 
 % find the temperature for maximum efficiency
 [~,S] = max(Efficiency);

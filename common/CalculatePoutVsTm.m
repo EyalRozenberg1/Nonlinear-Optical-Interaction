@@ -1,6 +1,8 @@
 function [figNum, Tmax, Tmin] = CalculatePoutVsTm(figNum, GradType, T, TmSamples, CrystalPropAxis, NumOfPoints, L, InteractionType, Lambda, Pol, refIdx, k, w, PinPeak, Undepleted, w0, PlaneGauss_, I, dx_prop, c, eps0, deff, A_from_I, Kappa, Print, P_from_A, samples)
 
-Tstep = linspace(-15,15,TmSamples);
+% Tstep = linspace(-10,10,TmSamples);
+DeltaBW     = 50;
+Tstep       = -0.5*DeltaBW:DeltaBW/TmSamples:0.5*DeltaBW-DeltaBW/TmSamples; % Temperature
 
 Efficiency          = zeros(1,TmSamples);  % Memmory Allocation
 
@@ -19,7 +21,7 @@ for Tm=1:TmSamples
 
     % intensity at the end of the crystal %
     if(PlaneGauss_)
-        AoutPower2  = A.out.*conj(A.out); AoutPower2  = AoutPower2(:,1).';
+        AoutPower2  = A.out.*conj(A.out);
         IOut        = 2*eps0*c*n.out.*AoutPower2;
         Efficiency(Tm) = IOut(end)/I.in1;
     else

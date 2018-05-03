@@ -4,7 +4,9 @@ function [figNum] = CalculateBW(PinPeak, Undepleted, w0, PlaneGauss_, figNum, Nu
 % 1) adiabatic
 % LambdaVec.in1 = linspace(Lambda.in1-15e-9,Lambda.in1+20e-9,BWSamples); % Wavelength [m]
 % 1) adiabatic
-LambdaVec.in1 = linspace(Lambda.in1-20e-9,Lambda.in1+30e-9,BWSamples); % Wavelength [m]
+% LambdaVec.in1 = linspace(Lambda.in1-25e-9,Lambda.in1+25e-9,BWSamples); % Wavelength [m]
+DeltaBW = 150e-9;
+LambdaVec.in1 = Lambda.in1-0.5*DeltaBW:DeltaBW/BWSamples:Lambda.in1+0.5*DeltaBW-DeltaBW/BWSamples; % Wavelength [m]
 
 
 
@@ -12,12 +14,12 @@ LambdaVec.in1 = linspace(Lambda.in1-20e-9,Lambda.in1+30e-9,BWSamples); % Wavelen
 Efficiency  = zeros(1,BWSamples);  % Memmory Allocation
 
 % in case of a constant temperature gradient
-DeltakL  = zeros(1,BWSamples);  % Memmory Allocation;
+DeltakL  = 0;%zeros(1,BWSamples);  % Memmory Allocation;
 
 % Create constant temperature gradient for DeltaK*L axis
-[tempGradConst] = TemperatureGradient( T, CrystalPropAxis(end), CrystalPropAxis, 'Const', NumOfPoints);
+% [tempGradConst] = TemperatureGradient( T, CrystalPropAxis(end), CrystalPropAxis, 'Const', NumOfPoints);
 % Crystal length
-L = CrystalPropAxis(end);
+% L = CrystalPropAxis(end);
 
 for lam=1:BWSamples
 tic
@@ -31,15 +33,15 @@ tic
     [DeltaK, K, n, Omega]    = DeltaK_Creator(TempGrad,InteractionType, lambda, Pol, refIdx, k, w);
     
     % const Delta K for axis value only
-    [ DeltakConst, ~, ~, ~] = DeltaK_Creator(tempGradConst,InteractionType, lambda, Pol, refIdx, k, w);
-    DeltakL(lam) = DeltakConst(round(NumOfPoints/2))*L;
+%     [ DeltakConst, ~, ~, ~] = DeltaK_Creator(tempGradConst,InteractionType, lambda, Pol, refIdx, k, w);
+%     DeltakL(lam) = DeltakConst(round(NumOfPoints/2))*L;
 
     % plane wave propagation using Split Step Fourier 
     [A, P] = WavePropagation_SSF(Undepleted, lambda, w0,  NumOfPoints, PlaneGauss_, dx_prop, CrystalPropAxis, DeltaK, K, Omega, n, I, InteractionType, deff, A_from_I, Kappa, P_from_A, samples);
     
     % intensity at the end of the crystal %
     if(PlaneGauss_)
-        AoutPower2  = A.out.*conj(A.out); AoutPower2  = AoutPower2(:,1).';
+        AoutPower2  = A.out.*conj(A.out);
         IOut        = 2*eps0*c*n.out.*AoutPower2;
         Efficiency(lam) = IOut(end)/I.in1;
     else
