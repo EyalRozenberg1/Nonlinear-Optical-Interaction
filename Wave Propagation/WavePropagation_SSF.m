@@ -25,9 +25,9 @@ tic
                     dAout = Kappaout*A.in1(i-1).^2.*exp(1i*DeltaK(i)*xi);
                     
                     if(Undepleted)
-                    A.in1(i) = A.in1(1); % Undepleted Pump
+                        A.in1(i) = A.in1(1); % Undepleted Pump
                     else
-                    A.in1(i) = A.in1(i-1) + dAin1*dx_prop;
+                        A.in1(i) = A.in1(i-1) + dAin1*dx_prop;
                     end
                     A.out(i) = A.out(i-1) + dAout*dx_prop;
                 end
