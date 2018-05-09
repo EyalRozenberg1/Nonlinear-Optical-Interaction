@@ -5,7 +5,7 @@ function [figNum, Tmax, Tmin] = CalculatePoutVsTempGradDiff(figNum, GradType, T,
 % DeltaT = linspace(-0.5*(T.max-T.min),0.5*(T.max-T.min),GradSamples);
 
 % For Gouy Phase Compensation:
-DeltaT = linspace(-(T.max-T.min),(T.max-T.min),GradSamples);
+DeltaT = linspace(-(T.max-T.min)/2,(T.max-T.min)/2,GradSamples);
 
 % h           = waitbar(0,'calculating P2\omega vs T');
 Efficiency          = zeros(1,GradSamples);  % Memmory Allocation

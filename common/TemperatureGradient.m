@@ -4,16 +4,18 @@ function [ TempGrad ] = TemperatureGradient( T, L, CrystalPropAxis, GradType, Nu
 switch GradType
     case 'Const'
         TempGrad = zeros(1,NumOfPoints) + T.pm;
+        TempGrad = TempGrad';
     case 'Linear'
         TempGrad = CrystalPropAxis.*(T.max - T.min)./L + T.min;
+        TempGrad = TempGrad';
     case'ApodizationMain'
         % Three liner parts %
 %         1.
 %         ApodizedDeltaT  = 0.85*(T.max - T.min);
 %         ApodizedLength  = 0.2*L;
 %         2.
-        ApodizedDeltaT  = 0.85*(T.max - T.min);
-        ApodizedLength  = 0.05*L;
+        ApodizedDeltaT  = 0.3778*(T.max - T.min);
+        ApodizedLength  = 0.2*L;
         
         
         AdiabaticLength = L - ApodizedLength;

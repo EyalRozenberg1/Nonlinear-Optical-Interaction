@@ -5,7 +5,7 @@ function [figNum] = CalculateBW(PinPeak, Undepleted, w0, PlaneGauss_, figNum, Nu
 % LambdaVec.in1 = linspace(Lambda.in1-15e-9,Lambda.in1+20e-9,BWSamples); % Wavelength [m]
 % 1) adiabatic
 % LambdaVec.in1 = linspace(Lambda.in1-25e-9,Lambda.in1+25e-9,BWSamples); % Wavelength [m]
-DeltaBW = 150e-9;
+DeltaBW = 50e-9;
 LambdaVec.in1 = Lambda.in1-0.5*DeltaBW:DeltaBW/BWSamples:Lambda.in1+0.5*DeltaBW-DeltaBW/BWSamples; % Wavelength [m]
 
 

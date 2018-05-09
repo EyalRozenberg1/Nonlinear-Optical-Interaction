@@ -46,7 +46,7 @@ P = 0;
 [TempGrad]      = TemperatureGradient(T, L, CrystalPropAxis, GradType, NumOfPoints);
 
 if(Print.P2w_vs_Temp) % Only for constant temperature gradient - the tempgradient is set in the function
-TempSamples            = 101; % 300               % Number of samples
+TempSamples            = 200; % 300               % Number of samples
 [figNum, MaxTempValue] = CalculatePoutVsTemp (PinPeak, Undepleted, T, w0, PlaneGauss_, figNum, NumOfPoints, I, CrystalPropAxis, dx_prop, TempSamples, Lambda, Pol, refIdx, k, w, c, eps0, InteractionType, deff, A_from_I, Kappa, Print, P_from_A, samples);
 % [figNum, MaxTempValue] = CalculatePoutVsTemp2(PinPeak, Undepleted, T, w0, PlaneGauss_, figNum, NumOfPoints, I, CrystalPropAxis, dx_prop, TempSamples, Lambda, Pol, refIdx, k, w, c, eps0, InteractionType, deff, A_from_I, Kappa, Print, P_from_A, samples);
 Print.P2w_vs_Temp=0;
@@ -58,22 +58,22 @@ end
 
 
 if(Print.P2w_vs_GradDiff)
-GradSamples          = 101;               % Number of samples
+GradSamples          = 200;               % Number of samples
 [figNum, Tmax, Tmin] = CalculatePoutVsTempGradDiff(figNum, GradType, T, GradSamples, CrystalPropAxis, NumOfPoints, L, InteractionType, Lambda, Pol, refIdx, k, w, PinPeak, Undepleted, w0, PlaneGauss_, I, dx_prop, c, eps0, deff, A_from_I, Kappa, Print, P_from_A, samples);
 Print.P2w_vs_GradDiff=0;
-T.max            = Tmax;
-T.min            = Tmin;
-[TempGrad]       = TemperatureGradient(T, L, CrystalPropAxis, GradType, NumOfPoints);
+% T.max            = Tmax;
+% T.min            = Tmin;
+% [TempGrad]       = TemperatureGradient(T, L, CrystalPropAxis, GradType, NumOfPoints);
 end
 
 
 if(Print.P2wVsTm)
-TmSamples          = 101;               % Number of samples
+TmSamples          = 200;               % Number of samples
 [figNum, Tmax, Tmin] = CalculatePoutVsTm(figNum, GradType, T, TmSamples, CrystalPropAxis, NumOfPoints, L, InteractionType, Lambda, Pol, refIdx, k, w, PinPeak, Undepleted, w0, PlaneGauss_, I, dx_prop, c, eps0, deff, A_from_I, Kappa, Print, P_from_A, samples);
 Print.P2wVsTm=0;
-T.max            = Tmax;
-T.min            = Tmin;
-[TempGrad]       = TemperatureGradient(T, L, CrystalPropAxis, GradType, NumOfPoints);
+% T.max            = Tmax;
+% T.min            = Tmin;
+% [TempGrad]       = TemperatureGradient(T, L, CrystalPropAxis, GradType, NumOfPoints);
 end
 
 if(Print.P2wVsw0)
@@ -93,7 +93,7 @@ Print.P2w_vs_Pw=0;
 end
 
 if(Print.BW)
-BWSamples           = 101;                  % Number of samples
+BWSamples           = 200;                  % Number of samples
 [figNum] = CalculateBW(PinPeak, Undepleted, w0, PlaneGauss_, figNum, NumOfPoints, I, CrystalPropAxis, dx_prop, BWSamples, TempGrad, Lambda, Pol, refIdx, k, w, c, eps0, InteractionType, deff, A_from_I, I_from_A, Kappa, Print, P_from_A, samples, T);
 Print.BW=0;
 end
