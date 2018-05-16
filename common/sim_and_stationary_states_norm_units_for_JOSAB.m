@@ -16,16 +16,16 @@ gamma2  = gamma(Omega.in2,K.in2);
 gamma3  = gamma(Omega.out,K.out);
 
 q           = @(a,gmma) a./sqrt(gmma); % generalized coordinates
-q1          = q(A.in1(:,1).',gamma1);
+q1          = q(A.in1(:,1),gamma1);
 q2          = q1;
-q3          = q(A.out(:,1).',gamma3);
+q3          = q(A.out(:,1),gamma3);
 
 q1_sq       = abs(q1).^2;
 q2_sq       = abs(q2).^2;
 q3_sq       = abs(q3).^2;
 
 DeltaGamma  = DeltaK./sqrt(gamma1.*gamma2.*gamma3); % the relative strength of the phase mismatch compared to the nonlinearity
-xi          = CrystalPropAxis.*sqrt( gamma1.*gamma2.*gamma3); % the scaled propagation length
+xi          = CrystalPropAxis'.*sqrt( gamma1.*gamma2.*gamma3); % the scaled propagation length
 
 K1          = q1_sq + q3_sq;
 K2          = q1_sq - q2_sq;
@@ -41,7 +41,7 @@ theta       = 1/6 * ( 5*DeltaGamma + theta_sign * sqrt( DeltaGamma.^2 + 6*P3 ) )
 
 inds_below = find( DeltaGamma < sqrt(2*P3) );
 
-q1_minus             = zeros( 1, length( DeltaGamma ) );
+q1_minus             = zeros( size(DeltaGamma) );
 % q1_minus(inds_below) = sqrt( (DeltaGamma(inds_below) - theta(inds_below)).*(DeltaGamma(inds_below) - 2*theta(inds_below)) );  Changed at 2017_06_20
 q1_minus(inds_below) = sqrt( (DeltaGamma(inds_below) - theta(inds_below)).*(DeltaGamma(inds_below) - 2*theta(inds_below)) ).* exp( 1i*theta(inds_below).*xi(inds_below) );
 
@@ -71,31 +71,30 @@ legend( '|q_1|^2', '|q_3|^-', 'q_1^-', 'q_3^-', 'Location', 'NorthWest' );
 
 % calculate r, the adiabatic criterion parameter
 % --------------------------------------------------------- % got to here with readding at 20/06/2017
-% DG_min  = -10*P3;
-% DG_max  =  10*P3;
-% L_xi    = 1./sqrt(P3);
-% 
-% d_theta_d_Gamma = 1/6 * ( 5 + theta_sign * DeltaGamma ./ sqrt( DeltaGamma.^2 + 6*P3 ) );
-% 
-% sign1           = sign( ( DeltaGamma - 2.*theta ).* ( DeltaGamma - theta ) );
-% dP1_0_d_Gamma   = sign1 .* 2 .* ( ( 1 - d_theta_d_Gamma ) .* ( DeltaGamma - 2*theta ) + ( 1 - 2*d_theta_d_Gamma ) .* ( DeltaGamma - theta ) ) - 2 .* ( 2*( DeltaGamma - theta ) .* ( 1 - d_theta_d_Gamma ) );
-% 
-% d2H_dQ1         = 64 * abs( ( DeltaGamma - theta ).^2 .* ( DeltaGamma - 2*theta ) );
-% 
-% d2H_dP1         =   -1 ./ ( 8 * abs( DeltaGamma - theta ) ) + ...
-%                     1 ./ ( 16 * abs( DeltaGamma - 2*theta ) ) - ...
-%                     DeltaGamma ./ ( 2 * abs( (DeltaGamma - theta ) .* (DeltaGamma - 2*theta ) ) ) + ...
-%                     DeltaGamma ./ ( 4 * abs( DeltaGamma - theta ).^2 );
-% 
-% nu              = 1i * sqrt( d2H_dQ1 .* d2H_dP1 );
-% d_DG_dxi        = ( DG_max - DG_min ) ./ L_xi; % TODO: change to nonlinear as well
-% r               = abs(1./nu .* dP1_0_d_Gamma .* d_DG_dxi./ P3); %1./abs(nu) .* abs( dP1_0_d_Gamma ) .* d_DG_dxi ./ P3
+DG_min  = min(DeltaGamma);
+DG_max  = max(DeltaGamma);
+L_xi    = max(xi);% 1./sqrt(P3)
 
-r = abs(...
-        ((0.5*(abs(q1_sq)+abs(q2_sq))-abs(q3_sq)) - ...
-         (0.5*(abs(q1_minus).^2+abs(q2_minus).^2) - abs(q3_minus).^2))./...
-        (0.5*(abs(q1_sq)+abs(q2_sq))+abs(q3_sq))...
-        );
+d_theta_d_Gamma = 1/6 * ( 5 + theta_sign * DeltaGamma ./ sqrt( DeltaGamma.^2 + 6*P3 ) );
+
+sign1           = sign( ( DeltaGamma - 2.*theta ).* ( DeltaGamma - theta ) );
+dP1_0_d_Gamma   = sign1 .* 2 .* ( ( 1 - d_theta_d_Gamma ) .* ( DeltaGamma - 2*theta ) + ( 1 - 2*d_theta_d_Gamma ) .* ( DeltaGamma - theta ) ) - 2 .* ( 2*( DeltaGamma - theta ) .* ( 1 - d_theta_d_Gamma ) );
+
+d2H_dQ1         = 64 * abs( ( DeltaGamma - theta ).^2 .* ( DeltaGamma - 2*theta ) );
+
+d2H_dP1         =   -1 ./ ( 8 * abs( DeltaGamma - theta ) ) + ...
+                    1 ./ ( 16 * abs( DeltaGamma - 2*theta ) ) - ...
+                    DeltaGamma ./ ( 2 * abs( (DeltaGamma - theta ) .* (DeltaGamma - 2*theta ) ) ) + ...
+                    DeltaGamma ./ ( 4 * abs( DeltaGamma - theta ).^2 );
+
+nu              = 1i * sqrt( d2H_dQ1 .* d2H_dP1 );
+d_DG_dxi        = ( DG_max - DG_min ) ./ L_xi; % TODO: change to nonlinear as well
+r               = abs(1./nu .* dP1_0_d_Gamma .* d_DG_dxi./ P3); %1./abs(nu) .* abs( dP1_0_d_Gamma ) .* d_DG_dxi ./ P3
+
+% r = abs(...
+%         ( (0.5*(abs(q1_sq)+abs(q2_sq))-abs(q3_sq)) - (0.5*(abs(q1_minus).^2+abs(q2_minus).^2) - abs(q3_minus).^2) )./...
+%         ( 0.5*(abs(q1_sq)+abs(q2_sq)) + abs(q3_sq) )...
+%         );
 figNum = figNum + 1;
 figure(figNum);set(gcf,'color','white');
 plot( xi.*sqrt(P3), r);

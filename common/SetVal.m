@@ -34,7 +34,7 @@ refIdx      = @(pol, lambda, temp)      n_lbo_Kato(pol, lambda, temp);
 Kappa       = @(d_eff,w_,k_,r)          1i*w_^2*d_eff./(k_(r)*c^2)*Attenuation;
 
 % according to boyd pg. 98 equation 2.7.39:
-A_from_I    = @(intensity,n)       sqrt(intensity/(2*n*eps0*c));
+A_from_I    = @(intensity,n)       sqrt(intensity./(2*n*eps0*c));
 I_from_A    = @(RefIdx,AvPower2)   2*eps0*c*RefIdx.*AvPower2;
 % according to boyd pg. 118 (end of the page):
 P_from_A    = @(A_r,r,n)           trapz(r, 2*pi*r.*(2*n*eps0*c*abs(A_r).^2)); % For a gaussian beam A is A(r)

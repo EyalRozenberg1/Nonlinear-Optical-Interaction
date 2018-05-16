@@ -115,7 +115,7 @@ if(Print.DeltaK || Print.Temperature || Print.RefIndex || Print.Amplitude || Pri
 end
 
 % Run normalized sationary states
-if(Print.NormST) % TODO: does not support Gauss wave
+if(Print.NormST)
 [figNum] = sim_and_stationary_states_norm_units_for_JOSAB(CrystalPropAxis, A, Omega, K, DeltaK, deff, c, figNum);
 end
 
