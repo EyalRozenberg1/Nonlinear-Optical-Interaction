@@ -20,7 +20,7 @@ for temp=1:TempSamples
 %     waitbar(temp / TempSamples);
 
     % Create Delta K
-    [DeltaK, K, n, Omega] = DeltaK_Creator(tempGrad, InteractionType, Lambda, Pol, refIdx, k, w);
+    [DeltaK, K, n, Omega] = DeltaK_Creator(repmat(tempGrad',200,1), InteractionType, Lambda, Pol, refIdx, k, w);
     DeltaKL(temp) = DeltaK(1)*L;
     % plane wave propagation using Split Step Fourier 
     [A, P] = WavePropagation_SSF(Undepleted, Lambda, w0, NumOfPoints, PlaneGauss_, dx_prop, CrystalPropAxis, DeltaK, K, Omega, n, I, InteractionType, deff, A_from_I, Kappa, P_from_A, samples,0);

@@ -37,12 +37,13 @@ tic
                 x_max       = NumOfPoints * dx_prop;
                 % Hankel definitions
                 % Note: we can be defined some parameters as const because change in very little
-                Kin1        = K.in1(1);
+                Kin1        = K.in1(1,1);
+%                 Kout        = K.out(1,1);
                 
-                zr.in1      = pi*n.in1(1)*w0.in1^2/Lambda.in1;     % [m] Reighley range with consider of Lambda in
+                zr.in1      = pi*n.in1(1,1)*w0.in1^2/Lambda.in1;     % [m] Reighley range with consider of Lambda in
                 w_max.in1   = w0.in1*sqrt(1+(x_max/zr.in1)^2);
                 
-                rmax.in1      = 2*w_max.in1;
+                rmax.in1      = 1.3*w_max.in1;
                 rmax.max      = rmax.in1;
 
                 mat_H2        = hankel_matrix2(0, rmax.max, samples);
@@ -55,15 +56,17 @@ tic
                 
                 % propagation H same as Split Step
                 H              = @(PropT, k)  exp(PropT).*exp(-1i*k*dx_prop);
-                PropTerm       = @(lambda,n_) 1i*dx_prop*2*pi*sqrt((n_/lambda)^2 - fr_sq_);
+                PropTerm       = @(lambda,n_) 1i*dx_prop*2*pi*sqrt((n_/lambda).^2 - fr_sq_);
                 
                 % according to boyd pg. 118 equations 2.10.5b-c:
                 b_             = @(k,w_0) k*w_0^2;
                 b.in1          = b_(Kin1, w0.in1);
+%                 b.out          = b_(Kout, w0.out);
                 
                 x_waist        = x_max/2; % [m] waists location in the crystal
                 chi_           = @(B) 2*(0-x_waist)/B;
                 chi.in1        = chi_(b.in1);
+%                 chi.out        = chi_(b.out);
                 
                 % Result for the start of the crystal
                 % memory allocation
@@ -71,8 +74,8 @@ tic
                 P.out = complex(zeros(1,NumOfPoints));
                 
                 % according to boyd pg. 117 equation 2.10.5a:
-                Ain1        = A_from_I(I.in1,n.in1(1))/(1+1i*chi.in1)*exp(-(r_.^2)/(w0.in1^2*(1+1i*chi.in1)));
-                Aout        = complex(zeros(samples,1));
+                Ain1        = A_from_I(I.in1,n.in1(:,1))/(1+1i*chi.in1).*exp(-(r_.^2)/(w0.in1^2*(1+1i*chi.in1)));
+                Aout        = 0;%A_from_I(I.out,n.out(:,1))/(1+1i*chi.out).*exp(-(r_.^2)/(w0.out^2*(1+1i*chi.out)));
                 
 %                 dAin1Phase   = zeros(NumOfPoints,1);
 %                 dAoutPhase   = zeros(NumOfPoints,1);
@@ -82,14 +85,14 @@ tic
 %                 Ain1Phase   = zeros(NumOfPoints,1);
 %                 AoutPhase   = zeros(NumOfPoints,1);
 
-                P.in1(1) = P_from_A(Ain1, r_, n.in1(1));
-                P.out(1) = 0;
+                P.in1(1) = P_from_A(Ain1, r_, n.in1(:,1));
+                P.out(1) = P_from_A(Aout, r_, n.out(:,1));
                 
                 for i=1:NumOfPoints
                     
                     % Prop term
-                    propterm.in1    = PropTerm(Lambda.in1 ,n.in1(i));
-                    propterm.out    = PropTerm(Lambda.out ,n.out(i));
+                    propterm.in1    = PropTerm(Lambda.in1 ,n.in1(:,i));
+                    propterm.out    = PropTerm(Lambda.out ,n.out(:,i));
                     
                     propterm.in1( real(propterm.in1)>0 ) = -propterm.in1( real(propterm.in1)>0 );
                     propterm.out( real(propterm.out)>0 ) = -propterm.out( real(propterm.out)>0 );
@@ -97,8 +100,8 @@ tic
                     Ew_in1 = ht2(Ain1);
                     Ew_out = ht2(Aout);
                     
-                    Hw.in1 = H(propterm.in1, K.in1(i));
-                    Hw.out = H(propterm.out, K.out(i));                    
+                    Hw.in1 = H(propterm.in1, K.in1(:,i));
+                    Hw.out = H(propterm.out, K.out(:,i));                    
                 
                     Ew_in1 = Ew_in1 .* Hw.in1;
                     Ew_out = Ew_out .* Hw.out;
@@ -112,8 +115,8 @@ tic
                     Kappaout = Kappa(deff,Omega.out,K.out,i);
                     
                     xi    = i * dx_prop;% changed
-                    dAin1 = 2*KappaIn*Aout.*conj(Ain1)*exp( -1i*DeltaK(i)*xi );
-                    dAout = Kappaout*Ain1.^2*exp( 1i*DeltaK(i)*xi );
+                    dAin1 = 2*KappaIn.*Aout.*conj(Ain1).*exp( -1i*DeltaK(:,i)*xi );
+                    dAout = Kappaout.*Ain1.^2.*exp( 1i*DeltaK(:,i)*xi );
                     
                     if(Undepleted)
                         Ain1 = Ain1;
@@ -133,9 +136,9 @@ tic
                     if(Undepleted)
                         P.in1(i) = P.in1(1); % Undepleted Pump
                     else
-                        P.in1(i) = P_from_A(Ain1, r_, n.in1(i));                        
+                        P.in1(i) = P_from_A(Ain1, r_, n.in1(:,i));                        
                     end
-                    P.out(i) = P_from_A(Aout, r_, n.out(i));
+                    P.out(i) = P_from_A(Aout, r_, n.out(:,i));
                     
                     if(isnan(P.out(i)) || isnan(P.in1(i)))
                         error('ERROR: numerical issue while calculating BW. Exit code');

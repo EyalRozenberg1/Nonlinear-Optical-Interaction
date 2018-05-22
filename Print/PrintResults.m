@@ -331,9 +331,9 @@ else
                 ylabel('Peak Power [W]');
                 legend('Pin(\omega)','Pout(2\omega)', 'Pin(\omega)+Pout(2\omega)');
                 if(T.max>=T.min)
-                    text(CrystalPropAxis(min(find(DeltaK>=0))), P.out(min(find(DeltaK>=0))), '\leftarrow PM');
+                    text(CrystalPropAxis(min(find(DeltaK(1,:)>=0))), P.out(min(find(DeltaK(1,:)>=0))), '\leftarrow PM');
                 else
-                   text(CrystalPropAxis(max(find(DeltaK>=0))), P.out(max(find(DeltaK>=0))), '\leftarrow PM'); 
+                   text(CrystalPropAxis(max(find(DeltaK(1,:)>=0))), P.out(max(find(DeltaK(1,:)>=0))), '\leftarrow PM'); 
                 end
             end
         end % TODO: does not support Gauss wave yet

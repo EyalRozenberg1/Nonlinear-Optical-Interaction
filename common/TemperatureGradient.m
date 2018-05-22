@@ -1,13 +1,15 @@
-function [ TempGrad ] = TemperatureGradient( T, L, CrystalPropAxis, GradType, NumOfPoints)
+function [ TempGrad ] = TemperatureGradient( T, L, CrystalPropAxis, GradType, NumOfPoints, samples)
 % the function creats a temperature gradient function %
 
 switch GradType
     case 'Const'
-        TempGrad = zeros(1,NumOfPoints) + T.pm;
-        TempGrad = TempGrad';
+        TempGrad    = zeros(1,NumOfPoints) + T.pm;
+        TempGrad_tv = linspace(0, T.D_tv, samples)';
+        TempGrad    = bsxfun(@minus,TempGrad, TempGrad_tv);
     case 'Linear'
         TempGrad = CrystalPropAxis.*(T.max - T.min)./L + T.min;
-        TempGrad = TempGrad';
+        TempGrad_tv = linspace(0, T.D_tv, samples)';
+        TempGrad    = bsxfun(@minus,TempGrad, TempGrad_tv);
     case'ApodizationMain'
         % Three liner parts %
 %         1.

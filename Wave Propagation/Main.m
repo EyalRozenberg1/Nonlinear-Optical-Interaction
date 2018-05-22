@@ -43,7 +43,7 @@ P = 0;
 
 
 % first define the gradient function type:
-[TempGrad]      = TemperatureGradient(T, L, CrystalPropAxis, GradType, NumOfPoints);
+[TempGrad]      = TemperatureGradient(T, L, CrystalPropAxis, GradType, NumOfPoints, samples);
 
 if(Print.P2w_vs_Temp) % Only for constant temperature gradient - the tempgradient is set in the function
 TempSamples            = 200; % 300               % Number of samples
