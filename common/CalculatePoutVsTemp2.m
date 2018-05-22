@@ -19,7 +19,7 @@ for temp=1:TempSamples
     [DeltaK, K, n, Omega] = DeltaK_Creator(tempGrad, InteractionType, Lambda, Pol, refIdx, k, w);
 
     % plane wave propagation using Split Step Fourier 
-    [A, P] = WavePropagation_SSF2(Undepleted, Lambda, w0, NumOfPoints, PlaneGauss_, dx_prop, CrystalPropAxis, DeltaK, K, Omega, n, I, InteractionType, deff, A_from_I, Kappa, P_from_A, samples);
+    [A, P] = WavePropagation_SSF2(Undepleted, Lambda, w0, NumOfPoints, PlaneGauss_, dx_prop, CrystalPropAxis, DeltaK, K, Omega, n, I, InteractionType, deff, A_from_I, Kappa, P_from_A, samples,0);
 
     % intensity at the end of the crystal %
     if(PlaneGauss_)

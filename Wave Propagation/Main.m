@@ -106,7 +106,7 @@ end
 
 % plane wave propagation using Split Step Fourier
 if(Print.Amplitude || Print.Intensity || Print.NormST)
-[A, P] = WavePropagation_SSF(Undepleted, Lambda, w0, NumOfPoints, PlaneGauss_, dx_prop, CrystalPropAxis, DeltaK, K, Omega, n, I, InteractionType, deff, A_from_I, Kappa, P_from_A, samples);
+[A, P] = WavePropagation_SSF(Undepleted, Lambda, w0, NumOfPoints, PlaneGauss_, dx_prop, CrystalPropAxis, DeltaK, K, Omega, n, I, InteractionType, deff, A_from_I, Kappa, P_from_A, samples, Print.NormST);
 end
 
 % Print results

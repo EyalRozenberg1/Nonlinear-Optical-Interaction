@@ -8,7 +8,7 @@ function [T, I, deff, Pol, Process, Lambda,...
 % Setting all nedded values for the simulated interaction
 
 % Crystal Input Parameters
-L               = 5e-2;              % Crystal’s length [m] Default: 5e-2
+L               = 5e-2;              % Crystal length [m] Default: 5e-2
 dx_prop         = 5e-6;              % Split Step Fourier   Default: 5e-7
 NumOfPoints     = round(L/dx_prop);  % round(L/dx_prop-1)
 CrystalPropAxis = linspace(0,L,NumOfPoints);

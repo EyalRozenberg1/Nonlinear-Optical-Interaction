@@ -1,0 +1,10 @@
+diff a/common/SetVal.m b/common/SetVal.m	(rejected hunks)
+@@ -8,7 +8,7 @@
+ % Setting all nedded values for the simulated interaction
+ 
+ % Crystal Input Parameters
+-L               = 5e-2;              % Crystal�s length [m] Default: 5e-2
++L               = 10e-2;              % Crystal�s length [m] Default: 5e-2
+ dx_prop         = 5e-6;              % Split Step Fourier   Default: 5e-7
+ NumOfPoints     = round(L/dx_prop);  % round(L/dx_prop-1)
+ CrystalPropAxis = linspace(0,L,NumOfPoints);

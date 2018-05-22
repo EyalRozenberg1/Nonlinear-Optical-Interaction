@@ -1,4 +1,4 @@
-function [A, P] = WavePropagation_SSF(Undepleted, Lambda, w0, NumOfPoints, PlaneGauss_, dx_prop, CrystalPropAxis, DeltaK, K, Omega, n, I, InteractionType, deff, A_from_I, Kappa, P_from_A, samples)
+function [A, P] = WavePropagation_SSF(Undepleted, Lambda, w0, NumOfPoints, PlaneGauss_, dx_prop, CrystalPropAxis, DeltaK, K, Omega, n, I, InteractionType, deff, A_from_I, Kappa, P_from_A, samples,NormST)
 % Split step fourier solution for Plane wave propagation
 
 tic 
@@ -31,7 +31,9 @@ tic
                     A.out(i) = A.out(i-1) + dAout*dx_prop;
                 end
             else % Gaussian Wave
-                A=0;
+                if NormST==0
+                    A=0;
+                end
                 x_max       = NumOfPoints * dx_prop;
                 % Hankel definitions
                 % Note: we can be defined some parameters as const because change in very little
@@ -145,6 +147,11 @@ tic
 %                         plotyy(r_,abs(Ain1),r_,abs(Aout)); title( num2str(round(100*i/NumOfPoints)));
 %                         drawnow;
                     end
+                end
+                if NormST==1
+                    A.in1 = A_from_I(P.in1.'/(pi*w0.I^2),n.in1);
+                    A.in2 = 0;
+                    A.out = A_from_I(P.out.'/(pi*w0.I^2),n.out);
                 end
             end     
         case 'Type1 THG'

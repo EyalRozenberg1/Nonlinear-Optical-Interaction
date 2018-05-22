@@ -37,7 +37,7 @@ tic
 %     DeltakL(lam) = DeltakConst(round(NumOfPoints/2))*L;
 
     % plane wave propagation using Split Step Fourier 
-    [A, P] = WavePropagation_SSF(Undepleted, lambda, w0,  NumOfPoints, PlaneGauss_, dx_prop, CrystalPropAxis, DeltaK, K, Omega, n, I, InteractionType, deff, A_from_I, Kappa, P_from_A, samples);
+    [A, P] = WavePropagation_SSF(Undepleted, lambda, w0,  NumOfPoints, PlaneGauss_, dx_prop, CrystalPropAxis, DeltaK, K, Omega, n, I, InteractionType, deff, A_from_I, Kappa, P_from_A, samples,0);
     
     % intensity at the end of the crystal %
     if(PlaneGauss_)

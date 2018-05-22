@@ -17,7 +17,7 @@ tic
 %     waitbar(p / NumSamples);
 
     % plane wave propagation using Split Step Fourier 
-    [A, P] = WavePropagation_SSF(Undepleted, Lambda, w0, NumOfPoints, PlaneGauss_, dx_prop, CrystalPropAxis, DeltaK, K, Omega, n, i, InteractionType, deff, A_from_I, Kappa, P_from_A, samples);
+    [A, P] = WavePropagation_SSF(Undepleted, Lambda, w0, NumOfPoints, PlaneGauss_, dx_prop, CrystalPropAxis, DeltaK, K, Omega, n, i, InteractionType, deff, A_from_I, Kappa, P_from_A, samples,0);
 
     % intensity at the end of the crystal %
     if(PlaneGauss_)
