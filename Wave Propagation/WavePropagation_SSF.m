@@ -159,11 +159,14 @@ tic
     end
 toc
 % figure; 
-% plot((Ain1Phase));
+% % plot((Ain1Phase));
+% % hold on;
+% % plot((AoutPhase));
+% plot((2*AoutPhase-Ain1Phase)-mean((2*AoutPhase-Ain1Phase)));
 % hold on;
-% plot((AoutPhase));
-% plot((AoutPhase-Ain1Phase));
-% legend('Guoy(A\omega)','Guoy(A2\omega)','Guoy(A2\omega)-Guoy(A\omega)')
+% plot(-atan((CrystalPropAxis'-x_max/2)/zr.in1))
+% % legend('Guoy(A\omega)','Guoy(A2\omega)','Guoy(A2\omega)-Guoy(A\omega)')
+% legend('2*Guoy(A2\omega)-Guoy(A\omega)','-atan(z/z_r)')
 % keyboard;
 end
 
