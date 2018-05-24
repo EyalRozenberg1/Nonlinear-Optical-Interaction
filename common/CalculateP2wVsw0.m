@@ -1,8 +1,9 @@
 function [figNum, MaxWaistValue] = CalculateP2wVsw0(PinPeak, Undepleted, w0, PlaneGauss_, figNum, NumOfPoints, I, CrystalPropAxis, dx_prop, w0Samples, TempGrad, Lambda, Pol, refIdx, k, w, c, eps0, InteractionType, deff, A_from_I, I_from_A, Kappa, Print, P_from_A, samples)
 
 % Gauss adiabatic depleted
-BeamWidthVec_in1  = linspace(0.5*w0.in1,1.5*w0.in1,w0Samples); % Wavelength [m]
-% BeamWidthVec_in1  = linspace(80e-6,160e-6,w0Samples); % Wavelength [m]
+Deltaw0 = 2e-5;
+BeamWidthVec_in1  = w0.in1-0.5*Deltaw0:Deltaw0/w0Samples:w0.in1+0.5*Deltaw0-Deltaw0/w0Samples;
+% BeamWidthVec_in1  = linspace(80e-6,160e-6,w0Samples);
 
 % h           = waitbar(0,'calculating P2w Vs w0');
 Efficiency  = zeros(1,w0Samples);  % Memmory Allocation
@@ -13,7 +14,8 @@ for beamwidth=1:w0Samples
 tic
     w_0.in1        = BeamWidthVec_in1(beamwidth);
     w_0.out        = w_0.in1/sqrt(2);
-    I.in1          = PinPeak/(pi*w_0.in1.^2);
+    w_0.I          = w_0.in1/sqrt(2);
+    I.in1          = PinPeak/(pi*w_0.I^2);% Input  Intensity 1[W/m^2]
 %     waitbar(beamwidth / w0Samples);
     
     % plane wave propagation using Split Step Fourier 

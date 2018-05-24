@@ -5,7 +5,7 @@ function [figNum, MaxTempValue] = CalculatePoutVsTemp(PinPeak, Undepleted, T, w0
 % TempVec = linspace(T.pm-3,T.pm+3,TempSamples);
 % TempVec = T.pm-2:0.1:T.pm+2;
 % TempVec   = linspace(T.pm-10,T.pm+10,TempSamples);
-DeltaBW   = 6;
+DeltaBW   = 2;
 TempVec   = T.pm-0.5*DeltaBW:DeltaBW/TempSamples:T.pm+0.5*DeltaBW-DeltaBW/TempSamples; % Temperature
 % TempVec = 146.9:0.1:151.9;
 

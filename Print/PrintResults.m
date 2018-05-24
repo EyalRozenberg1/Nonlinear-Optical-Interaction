@@ -11,15 +11,16 @@ if (printBW)
     figNum = figNum + 1;
     FigHandle = figure(figNum);set(gcf,'color','white');
     
-    plot(Lambda.in1, Efficiency,'b*-','Linewidth',2);
-    xlim([min(Lambda.in1) max(Lambda.in1)]);
+    plot(Lambda.inVec, Efficiency,'b*-','Linewidth',2);
+    xlim([min(Lambda.inVec) max(Lambda.inVec)]);
     
     xlabel('\lambda_p_u_m_p [m]');
     ylabel('Conversion Efficiency');
     
     title(['Conversion Efficiency vs \lambda for ',InteractionType,' P_I_n= ',num2str(PinPeak),' W']);
-    [M,S] = max(Efficiency);
-    text(Lambda.in1(S),Efficiency(S), {['\leftarrow \eta= ', num2str(M),' ,\lambda= ', num2str(Lambda.in1(S))]});
+%     [M,S] = max(Efficiency);
+    [~,S] = min(abs(Lambda.inVec-Lambda.in1));
+    text(Lambda.inVec(S),Efficiency(S), {['\leftarrow \eta= ', num2str(Efficiency(S)),' ,\lambda= ', num2str(Lambda.inVec(S))]});
 
 elseif(Print.P2w_vs_Temp)
     figNum = figNum + 1;

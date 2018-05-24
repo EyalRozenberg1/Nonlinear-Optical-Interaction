@@ -69,15 +69,16 @@ end
 
 if(Print.P2wVsTm)
 TmSamples          = 200;               % Number of samples
-[figNum, Tmax, Tmin] = CalculatePoutVsTm(figNum, GradType, T, TmSamples, CrystalPropAxis, NumOfPoints, L, InteractionType, Lambda, Pol, refIdx, k, w, PinPeak, Undepleted, w0, PlaneGauss_, I, dx_prop, c, eps0, deff, A_from_I, Kappa, Print, P_from_A, samples);
+[figNum, Tmax, Tmin, Tm] = CalculatePoutVsTm(figNum, GradType, T, TmSamples, CrystalPropAxis, NumOfPoints, L, InteractionType, Lambda, Pol, refIdx, k, w, PinPeak, Undepleted, w0, PlaneGauss_, I, dx_prop, c, eps0, deff, A_from_I, Kappa, Print, P_from_A, samples);
 Print.P2wVsTm=0;
-% T.max            = Tmax;
-% T.min            = Tmin;
-% [TempGrad]       = TemperatureGradient(T, L, CrystalPropAxis, GradType, NumOfPoints);
+T.max            = Tmax;
+T.min            = Tmin;
+T.pm             = Tm;
+[TempGrad]       = TemperatureGradient(T, L, CrystalPropAxis, GradType, NumOfPoints);
 end
 
 if(Print.P2wVsw0)
-w0Samples           = 40;                  % Number of samples
+w0Samples           = 200;                  % Number of samples
 [figNum, MaxWaistValue] = CalculateP2wVsw0(PinPeak, Undepleted, w0, PlaneGauss_, figNum, NumOfPoints, I, CrystalPropAxis, dx_prop, w0Samples, TempGrad, Lambda, Pol, refIdx, k, w, c, eps0, InteractionType, deff, A_from_I, I_from_A, Kappa, Print, P_from_A, samples);
 Print.P2wVsw0=0;
 w0.in1 = MaxWaistValue.in1;

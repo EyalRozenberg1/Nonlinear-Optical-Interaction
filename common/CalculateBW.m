@@ -2,11 +2,12 @@ function [figNum] = CalculateBW(PinPeak, Undepleted, w0, PlaneGauss_, figNum, Nu
 % Calculating the BW of the conversion
 
 % 1) adiabatic
-% LambdaVec.in1 = linspace(Lambda.in1-15e-9,Lambda.in1+20e-9,BWSamples); % Wavelength [m]
+% LambdaVec.inVec = linspace(Lambda.in1-15e-9,Lambda.in1+20e-9,BWSamples); % Wavelength [m]
 % 1) adiabatic
-% LambdaVec.in1 = linspace(Lambda.in1-25e-9,Lambda.in1+25e-9,BWSamples); % Wavelength [m]
-DeltaBW = 50e-9;
-LambdaVec.in1 = Lambda.in1-0.5*DeltaBW:DeltaBW/BWSamples:Lambda.in1+0.5*DeltaBW-DeltaBW/BWSamples; % Wavelength [m]
+% LambdaVec.inVec = linspace(Lambda.in1-25e-9,Lambda.in1+25e-9,BWSamples); % Wavelength [m]
+DeltaBW = 4e-9;
+LambdaVec.inVec = Lambda.in1-0.5*DeltaBW:DeltaBW/BWSamples:Lambda.in1+0.5*DeltaBW-DeltaBW/BWSamples; % Wavelength [m]
+LambdaVec.in1  = Lambda.in1;
 
 
 
@@ -24,7 +25,7 @@ DeltakL  = 0;%zeros(1,BWSamples);  % Memmory Allocation;
 for lam=1:BWSamples
 tic
     lam
-    lambda.in1 = LambdaVec.in1(lam);
+    lambda.in1 = LambdaVec.inVec(lam);
     lambda.in2 = lambda.in1;
     lambda.out = lambda.in1/2;
 %     waitbar(lam / BWSamples);

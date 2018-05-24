@@ -1,7 +1,7 @@
-function [figNum, Tmax, Tmin] = CalculatePoutVsTm(figNum, GradType, T, TmSamples, CrystalPropAxis, NumOfPoints, L, InteractionType, Lambda, Pol, refIdx, k, w, PinPeak, Undepleted, w0, PlaneGauss_, I, dx_prop, c, eps0, deff, A_from_I, Kappa, Print, P_from_A, samples)
+function [figNum, Tmax, Tmin, Tm] = CalculatePoutVsTm(figNum, GradType, T, TmSamples, CrystalPropAxis, NumOfPoints, L, InteractionType, Lambda, Pol, refIdx, k, w, PinPeak, Undepleted, w0, PlaneGauss_, I, dx_prop, c, eps0, deff, A_from_I, Kappa, Print, P_from_A, samples)
 
 % Tstep = linspace(-10,10,TmSamples);
-DeltaBW     = 50;
+DeltaBW     = 6;
 Tstep       = -0.5*DeltaBW:DeltaBW/TmSamples:0.5*DeltaBW-DeltaBW/TmSamples; % Temperature
 
 Efficiency          = zeros(1,TmSamples);  % Memmory Allocation
@@ -42,5 +42,6 @@ end
 [~,S] = max(Efficiency);
 Tmax = T.max + Tstep(S);
 Tmin = T.min + Tstep(S);
+Tm   = T.pm + Tstep(S);
 end
 
