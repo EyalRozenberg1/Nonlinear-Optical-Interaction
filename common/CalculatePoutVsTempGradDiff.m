@@ -1,4 +1,4 @@
-function [figNum, Tmax, Tmin] = CalculatePoutVsTempGradDiff(figNum, GradType, T, GradSamples, CrystalPropAxis, NumOfPoints, L, InteractionType, Lambda, Pol, refIdx, k, w, PinPeak, Undepleted, w0, PlaneGauss_, I, dx_prop, c, eps0, deff, A_from_I, Kappa, Print, P_from_A, samples)
+function [figNum, Tmax, Tmin] = CalculatePoutVsTempGradDiff(figNum, GradType, T, GradSamples, CrystalPropAxis, NumOfPoints, L, InteractionType, Lambda, Pol, refIdx, k, w, PinPeak, Undepleted, w0, PlaneGauss_, I, dx_prop, c, eps0, deff, A_from_I, Kappa, Print, P_from_A, samples, xi)
 % Calculating the BW of the conversion
 
 % For adiabatic:
@@ -16,7 +16,7 @@ for diff=1:GradSamples
     t.max = T.pm + DeltaT(diff);
     t.min = T.pm - DeltaT(diff);
     
-    [TempGrad]      = TemperatureGradient(t, L, CrystalPropAxis, GradType, NumOfPoints);
+    [TempGrad]      = TemperatureGradient(t, L, CrystalPropAxis, GradType, NumOfPoints, xi);
 
 %     waitbar(temp / TempSamples);
 

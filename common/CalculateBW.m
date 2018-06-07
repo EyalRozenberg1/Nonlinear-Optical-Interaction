@@ -18,7 +18,7 @@ Efficiency  = zeros(1,BWSamples);  % Memmory Allocation
 DeltakL  = 0;%zeros(1,BWSamples);  % Memmory Allocation;
 
 % Create constant temperature gradient for DeltaK*L axis
-% [tempGradConst] = TemperatureGradient( T, CrystalPropAxis(end), CrystalPropAxis, 'Const', NumOfPoints);
+% [tempGradConst] = TemperatureGradient( T, CrystalPropAxis(end), CrystalPropAxis, 'Const', NumOfPoints, xi);
 % Crystal length
 % L = CrystalPropAxis(end);
 

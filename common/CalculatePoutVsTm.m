@@ -1,4 +1,4 @@
-function [figNum, Tmax, Tmin, Tm] = CalculatePoutVsTm(figNum, GradType, T, TmSamples, CrystalPropAxis, NumOfPoints, L, InteractionType, Lambda, Pol, refIdx, k, w, PinPeak, Undepleted, w0, PlaneGauss_, I, dx_prop, c, eps0, deff, A_from_I, Kappa, Print, P_from_A, samples)
+function [figNum, Tmax, Tmin, Tm] = CalculatePoutVsTm(figNum, GradType, T, TmSamples, CrystalPropAxis, NumOfPoints, L, InteractionType, Lambda, Pol, refIdx, k, w, PinPeak, Undepleted, w0, PlaneGauss_, I, dx_prop, c, eps0, deff, A_from_I, Kappa, Print, P_from_A, samples, xi)
 
 % Tstep = linspace(-10,10,TmSamples);
 DeltaBW     = 6;
@@ -11,7 +11,7 @@ for Tm=1:TmSamples
     t.max = T.max + Tstep(Tm);
     t.min = T.min + Tstep(Tm);
     
-    [TempGrad]      = TemperatureGradient(t, L, CrystalPropAxis, GradType, NumOfPoints);
+    [TempGrad]      = TemperatureGradient(t, L, CrystalPropAxis, GradType, NumOfPoints, xi);
 
     % Create Delta K
     [DeltaK, K, n, Omega] = DeltaK_Creator(TempGrad, InteractionType, Lambda, Pol, refIdx, k, w);

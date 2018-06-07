@@ -1,4 +1,4 @@
-function [ TempGrad ] = TemperatureGradient( T, L, CrystalPropAxis, GradType, NumOfPoints)
+function [ TempGrad ] = TemperatureGradient( T, L, CrystalPropAxis, GradType, NumOfPoints, xi)
 % the function creats a temperature gradient function %
 
 switch GradType
@@ -87,10 +87,20 @@ case'Exp_3x3x30'
     
     case 'ArcTan'
         % To reduce Gouy Phase
-        xi       = 2.84;
-        z0       = L/(2*xi);
-        TempGrad = T.pm + 0.5 * (T.max - T.min) * atan((CrystalPropAxis-L/2)/z0)/max(atan((CrystalPropAxis-L/2)/z0));
+%         xi       = 2.84;
+        zr       = L/(2*xi);
+        TempGrad = T.pm + 0.5 * (T.max - T.min) * atan((CrystalPropAxis-L/2)/zr)/max(atan((CrystalPropAxis-L/2)/zr));
 %         TempGrad = T.pm + 1.232/1.615 * 0.5 * (T.max - T.min) * atan((CrystalPropAxis-L/2)/z0)/max(atan((CrystalPropAxis-L/2)/z0));
+        TempGrad = TempGrad.';
+case 'ArcTan2'
+        % To reduce Gouy Phase
+        CrystalPropAxis = CrystalPropAxis + CrystalPropAxis(2);
+        zr       = L/(2*xi);
+        TempGrad = T.pm + 0.5*(T.max - T.min) * ...
+        ( (atan((L/2)/zr) + atan((CrystalPropAxis-L/2)/zr))./CrystalPropAxis - mean((atan((L/2)/zr) + atan((CrystalPropAxis-L/2)/zr))./CrystalPropAxis) ) ...
+        / max(atan((L/2)/zr) + atan((CrystalPropAxis-L/2)/zr)./CrystalPropAxis);
+        
+        TempGrad = TempGrad.';
 
     case'Apodization1'
         % Three liner parts %
