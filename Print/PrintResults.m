@@ -223,14 +223,14 @@ else
         % calculate Gouy Phase
         L         = CrystalPropAxis(end);
         z0        = L/(2*xi);
-        GouyPhase = atan((CrystalPropAxis-L/2)/z0);
+        GouyPhase = -atan((CrystalPropAxis-L/2)/z0).';
         plot(CrystalPropAxis, GouyPhase, 'r.');
         title(['Gouy Phase for \xi = ',num2str(xi),', \DeltaK\bulletL = ',num2str(L*(DeltaK(end)-DeltaK(1)))]);
         xlabel('Crystal Interaction Length [m]');
         ylabel('Gouy Phase');
         hold on;
-        plot(CrystalPropAxis,DeltaK*L,'b');
-        plot(CrystalPropAxis,GouyPhase+DeltaK*L,'k');
+        plot(CrystalPropAxis,DeltaK.*CrystalPropAxis','b');
+        plot(CrystalPropAxis,GouyPhase+DeltaK.*CrystalPropAxis','k');
         legend('Gouy Phase', '\DeltaK\bulletL','Gouy Phase+\DeltaK\bulletL');
         hold off;
         if(DeltaK(1) ~= DeltaK(end))
@@ -250,10 +250,18 @@ else
         % set(FigHandle, 'Position', [83 374 576 512]);
         % print Refractive index as a function of Crystal length
         if strcmp('Type1 SHG',InteractionType)
-            plot(CrystalPropAxis, n.in1,'r'); hold on;
-            plot(CrystalPropAxis, n.out,'b'); hold off;
+            plot(CrystalPropAxis, n.in1,'r', 'Linewidth', 2); hold on;
+            plot(CrystalPropAxis, n.out,'b', 'Linewidth', 2); hold off;
             title({'Refractive index as a function of Crystal Crystal length','Type 1 oo(z)->e(y)'});
             legend('no(z)','ne(y)');
+            xlabel('Crystal Interaction Length [m]');
+            ylabel('Refractive Index');
+            
+            figNum = figNum + 1;
+            FigHandle = figure(figNum);set(gcf,'color','white');
+            plot(CrystalPropAxis, n.in1 - n.out,'k', 'Linewidth', 2);
+            title({'Refractive index difference as a function of Crystal Crystal length','Type 1 oo(z)->e(y)'});
+            legend('\Deltan');
             xlabel('Crystal Interaction Length [m]');
             ylabel('Refractive Index');
         end

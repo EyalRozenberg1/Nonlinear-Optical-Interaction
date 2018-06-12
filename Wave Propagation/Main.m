@@ -43,7 +43,7 @@ P = 0;
 
 
 % first define the gradient function type:
-[TempGrad]      = TemperatureGradient(T, L, CrystalPropAxis, GradType, NumOfPoints);
+[TempGrad]      = TemperatureGradient(T, L, CrystalPropAxis, GradType, NumOfPoints, xi);
 
 if(Print.P2w_vs_Temp) % Only for constant temperature gradient - the tempgradient is set in the function
 TempSamples            = 200; % 300               % Number of samples
@@ -52,29 +52,29 @@ TempSamples            = 200; % 300               % Number of samples
 Print.P2w_vs_Temp=0;
 T.pm            = MaxTempValue;
 if(strcmp(GradType,'Const'))
-    [TempGrad]      = TemperatureGradient(T, L, CrystalPropAxis, GradType, NumOfPoints);
+    [TempGrad]      = TemperatureGradient(T, L, CrystalPropAxis, GradType, NumOfPoints, xi);
 end
 end
 
 
 if(Print.P2w_vs_GradDiff)
 GradSamples          = 200;               % Number of samples
-[figNum, Tmax, Tmin] = CalculatePoutVsTempGradDiff(figNum, GradType, T, GradSamples, CrystalPropAxis, NumOfPoints, L, InteractionType, Lambda, Pol, refIdx, k, w, PinPeak, Undepleted, w0, PlaneGauss_, I, dx_prop, c, eps0, deff, A_from_I, Kappa, Print, P_from_A, samples);
+[figNum, Tmax, Tmin] = CalculatePoutVsTempGradDiff(figNum, GradType, T, GradSamples, CrystalPropAxis, NumOfPoints, L, InteractionType, Lambda, Pol, refIdx, k, w, PinPeak, Undepleted, w0, PlaneGauss_, I, dx_prop, c, eps0, deff, A_from_I, Kappa, Print, P_from_A, samples, xi);
 Print.P2w_vs_GradDiff=0;
 T.max            = Tmax;
 T.min            = Tmin;
-[TempGrad]       = TemperatureGradient(T, L, CrystalPropAxis, GradType, NumOfPoints);
+[TempGrad]       = TemperatureGradient(T, L, CrystalPropAxis, GradType, NumOfPoints, xi);
 end
 
 
 if(Print.P2wVsTm)
 TmSamples          = 200;               % Number of samples
-[figNum, Tmax, Tmin, Tm] = CalculatePoutVsTm(figNum, GradType, T, TmSamples, CrystalPropAxis, NumOfPoints, L, InteractionType, Lambda, Pol, refIdx, k, w, PinPeak, Undepleted, w0, PlaneGauss_, I, dx_prop, c, eps0, deff, A_from_I, Kappa, Print, P_from_A, samples);
+[figNum, Tmax, Tmin, Tm] = CalculatePoutVsTm(figNum, GradType, T, TmSamples, CrystalPropAxis, NumOfPoints, L, InteractionType, Lambda, Pol, refIdx, k, w, PinPeak, Undepleted, w0, PlaneGauss_, I, dx_prop, c, eps0, deff, A_from_I, Kappa, Print, P_from_A, samples, xi);
 Print.P2wVsTm=0;
 T.max            = Tmax;
 T.min            = Tmin;
 T.pm             = Tm;
-[TempGrad]       = TemperatureGradient(T, L, CrystalPropAxis, GradType, NumOfPoints);
+[TempGrad]       = TemperatureGradient(T, L, CrystalPropAxis, GradType, NumOfPoints, xi);
 end
 
 if(Print.P2wVsw0)
@@ -85,6 +85,7 @@ w0.in1 = MaxWaistValue.in1;
 w0.out = MaxWaistValue.out;
 w0.I   = w0.in1/sqrt(2); % intensity waist
 I.in1  = PinPeak/(pi*w0.I.^2);
+xi = L/(2*pi*1.605*w0.in1^2/Lambda.in1);
 end
 
 if(Print.P2w_vs_Pw)

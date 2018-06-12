@@ -1,8 +1,8 @@
 function [ Print, figNum,  PlaneGauss_, GradType, Undepleted] = ReqPrints()
 
 % Create temperature gradient
-GradTypeVec             = {'Const','Linear', 'ApodizationMain', 'Exp_5x5x50','Exp_4x4x50', 'Exp_3x3x30', 'ArcTan', 'Apodization3','Apodization1','Apodization2','Apodization3_Old' ,'Apodization1.5','Apodization1.6','Apodization3.5','Exponential'};
-GradType                = char(GradTypeVec(7));
+GradTypeVec             = {'Const','Linear', 'ApodizationMain', 'Exp_5x5x50','Exp_4x4x50', 'Exp_3x3x30', 'ArcTan', 'ArcTan2', 'ArcTan3', 'Apodization3','Apodization1','Apodization2','Apodization3_Old' ,'Apodization1.5','Apodization1.6','Apodization3.5','Exponential'};
+GradType                = char(GradTypeVec(1));
 
 % Define Simulation Type: Gauss=0 OR Plane wave=1
 PlaneGauss_             = 0;

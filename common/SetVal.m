@@ -17,10 +17,10 @@ CrystalPropAxis = linspace(0,L,NumOfPoints);
 xi               = 2.84; % {1, 2.84, 3.317}
 
 % Intensity beam waist [m] {Alpha-Las:120e-6, Luce:49e-6 }
-w0.I        = 72.639e-6/sqrt(2);%49e-6/sqrt(2); % B&K for xi=2.84 -> w0.I=43.170e-06/sqrt(2)
+w0.I        = 72.639e-6/sqrt(2)/sqrt(xi);%49e-6/sqrt(2); % B&K for xi=2.84 -> w0.I=43.170e-06/sqrt(2)
 w0.in1      = sqrt(2)*w0.I;         % fundamental  [m] - under calculation considering Lambda in   B&K {1/sqrt(2.84)*72.75e-6 ~= 43.169e-06}
 w0.out      = w0.in1/sqrt(2);       % 2nd harmonic [m] - under calculation considering Lambda out  B&K {1/sqrt(2.84)*51.44e-6 ~= 30.524e-05}
-samples     = 200; % 400            % Hankel number of sumples definition
+samples     = 400; % 400            % Hankel number of sumples definition
 Attenuation = 1;                  % 0.56; 1/sqrt(2*pi); energy attenuation due to pusle gaussian shape
 
 
@@ -45,7 +45,7 @@ switch InteractionType
         Lambda.in1  = 1064.2e-9;   % Wavelength [m]
         Lambda.in2  = Lambda.in1;
         Lambda.out  = Lambda.in1/2;
-        PinAvg      = 5e-3;  % [W]   Luce: 940e-3[W]   Alpha Las: 100e-3[W]   fiber laser: 6[W]
+        PinAvg      = 300e-3;  % [W]   Luce: 940e-3[W]   Alpha Las: 100e-3[W]   fiber laser: 6[W]
         f           = 10e3;    % [Hz]  Luce: 10K[Hz]     Alpha Las: 100[Hz]     fiber laser: 20K[Hz]
         Pulse_wdt   = 5e-9;    % [s]   Luce: 5n[sec]     Alpha Las: 1.1n[sec]   fiber laser: 10n[sec]
         PinPeak     = PinAvg/(f*Pulse_wdt);
@@ -60,9 +60,12 @@ switch InteractionType
         Walkoffangle= 0;            % [mrad]
         Orientation.theta = 90;     % [Deg]
         Orientation.phi   = 0;      % [Deg]
-        T.pm              = 149.3409;% 148.900862: for Dk ~=0, 149.3409: for optimum efficiency
-        T.min             = T.pm + 0.0930; %20 start of the crystal
-        T.max             = T.pm - 0.0930; %20 end of the crystal
+        T.pm              = 149.3709;% 148.900862: for Dk ~=0, 149.3409: for optimum efficiency
+        T.min             = T.pm - 0.3492; %20 start of the crystal; xi=3.317, -0.24
+        T.max             = T.pm + 0.3492; %20 end of the crystal; xi=3.317, +0.24
+%         xi=5,     T.min=-0.28, T.max=+0.28, T.pm=149.265
+%         xi=3.317, T.min=-0.24, T.max=+0.24, T.pm=149.255
+%         xi=2.84,  T.min=-0.23, T.max=+0.23, T.pm=149.247
 %         T.min             = T.pm - 0.4594;     % LBO Crystal low gradient Temperature.
 %         T.max             = T.pm + 0.4594;     % LBO Crystal high gradient Temperature.
         

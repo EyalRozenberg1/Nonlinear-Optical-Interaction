@@ -101,7 +101,17 @@ case 'ArcTan2'
         / max(atan((L/2)/zr) + atan((CrystalPropAxis-L/2)/zr)./CrystalPropAxis);
         
         TempGrad = TempGrad.';
-
+case 'ArcTan3'
+        % To reduce Gouy Phase at depleted pump
+        beta = -6;% -0.7
+        CrystalPropAxis = CrystalPropAxis + CrystalPropAxis(2);
+        zr       = L/(2*xi);
+        TempGrad = T.pm + 0.5*(T.max - T.min) * ...
+        ( (atan((L/2)/zr) + atan((CrystalPropAxis-L/2)/zr))./CrystalPropAxis - mean((atan((L/2)/zr) + atan((CrystalPropAxis-L/2)/zr))./CrystalPropAxis) ) ...
+        / max(atan((L/2)/zr) + atan((CrystalPropAxis-L/2)/zr)./CrystalPropAxis);
+        
+        TempGrad = TempGrad + beta*CrystalPropAxis;
+        TempGrad = TempGrad.';
     case'Apodization1'
         % Three liner parts %
         slop1 = 4*CrystalPropAxis(1:round(NumOfPoints*0.1)).*(T.max - T.min)/L + T.min;
