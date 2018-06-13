@@ -60,9 +60,9 @@ switch InteractionType
         Walkoffangle= 0;            % [mrad]
         Orientation.theta = 90;     % [Deg]
         Orientation.phi   = 0;      % [Deg]
-        T.pm              = 148.900862;% {149.4695, 148.90088}
-        T.min             = T.pm + 9; %20 start of the crystal
-        T.max             = T.pm - 9; %20 end of the crystal
+        T.pm              = 149.2;% {149.4695, 148.90088}
+        T.min             = T.pm - 9; %20 start of the crystal
+        T.max             = T.pm + 9; %20 end of the crystal
 %         T.min             = T.pm - 0.4594;     % LBO Crystal low gradient Temperature.
 %         T.max             = T.pm + 0.4594;     % LBO Crystal high gradient Temperature.
         

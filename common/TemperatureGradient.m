@@ -14,8 +14,23 @@ switch GradType
 %         ApodizedDeltaT  = 0.85*(T.max - T.min);
 %         ApodizedLength  = 0.2*L;
 %         2.
-        ApodizedDeltaT  = 0.3778*(T.max - T.min);
-        ApodizedLength  = 0.2*L;
+%                           - - - -  T.max
+%                        /
+%                       / 
+%               / / / /    - - - - - T2
+%             /            - - - - - T1
+%            /
+% T.min - -
+%
+% 
+% ApodizedDeltaT = (T.max - T.min)-(T2 - T1) 
+% Center Slope   = m = (T2 - T1)/0.5L
+%
+% --> ApodizedDeltaT = (T.max - T.min)*0.5L*m
+% NOTE: Select slope and from it derive ApodizedDeltaT
+
+        ApodizedDeltaT  = 11/18*(T.max - T.min);
+        ApodizedLength  = 0.5*L;
         
         
         AdiabaticLength = L - ApodizedLength;
