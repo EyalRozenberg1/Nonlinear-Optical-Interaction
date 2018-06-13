@@ -224,13 +224,13 @@ else
         L         = CrystalPropAxis(end);
         z0        = L/(2*xi);
         GouyPhase = -atan((CrystalPropAxis-L/2)/z0).';
-        plot(CrystalPropAxis, GouyPhase, 'r.');
+        plot(CrystalPropAxis, GouyPhase, 'r', 'Linewidth', 2);
         title(['Gouy Phase for \xi = ',num2str(xi),', \DeltaK\bulletL = ',num2str(L*(DeltaK(end)-DeltaK(1)))]);
         xlabel('Crystal Interaction Length [m]');
         ylabel('Gouy Phase');
         hold on;
-        plot(CrystalPropAxis,DeltaK.*CrystalPropAxis','b');
-        plot(CrystalPropAxis,GouyPhase+DeltaK.*CrystalPropAxis','k');
+        plot(CrystalPropAxis,DeltaK.*CrystalPropAxis','b', 'Linewidth', 2);
+        plot(CrystalPropAxis,GouyPhase+DeltaK.*CrystalPropAxis','k', 'Linewidth', 2);
         legend('Gouy Phase', '\DeltaK\bulletL','Gouy Phase+\DeltaK\bulletL');
         hold off;
         if(DeltaK(1) ~= DeltaK(end))
