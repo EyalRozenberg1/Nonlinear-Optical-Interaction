@@ -14,13 +14,13 @@ NumOfPoints     = round(L/dx_prop);  % round(L/dx_prop-1)
 CrystalPropAxis = linspace(0,L,NumOfPoints);
 
 % Gaussian Wave parameters
-xi               = 2.84; % {1, 2.84, 3.317}
+xi               = 5.1315; % {1, 2.84, 3.317, 5.1315}
 
 % Intensity beam waist [m] {Alpha-Las:120e-6, Luce:49e-6 }
 w0.I        = 72.639e-6/sqrt(2)/sqrt(xi);%49e-6/sqrt(2); % B&K for xi=2.84 -> w0.I=43.170e-06/sqrt(2)
 w0.in1      = sqrt(2)*w0.I;         % fundamental  [m] - under calculation considering Lambda in   B&K {1/sqrt(2.84)*72.75e-6 ~= 43.169e-06}
 w0.out      = w0.in1/sqrt(2);       % 2nd harmonic [m] - under calculation considering Lambda out  B&K {1/sqrt(2.84)*51.44e-6 ~= 30.524e-05}
-samples     = 400; % 400            % Hankel number of sumples definition
+samples     = 200; % 400            % Hankel number of sumples definition
 Attenuation = 1;                  % 0.56; 1/sqrt(2*pi); energy attenuation due to pusle gaussian shape
 
 
