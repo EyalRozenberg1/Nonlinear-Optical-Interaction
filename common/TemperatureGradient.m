@@ -26,7 +26,7 @@ switch GradType
 % ApodizedDeltaT = (T.max - T.min)-(T2 - T1) 
 % Center Slope   = m = (T2 - T1)/0.5L
 %
-% --> ApodizedDeltaT = (T.max - T.min)*0.5L*m
+% --> ApodizedDeltaT = (T.max - T.min)-0.5L*m
 % NOTE: Select slope and from it derive ApodizedDeltaT
 
         ApodizedDeltaT  = 11/18*(T.max - T.min);
