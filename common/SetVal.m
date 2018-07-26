@@ -47,7 +47,7 @@ switch InteractionType
         Lambda.out  = Lambda.in1/2;
         PinAvg      = 50e-3;  % [W]   Luce: 940e-3[W]   Alpha Las: 100e-3[W]   fiber laser: 6[W]
         f           = 100;    % [Hz]  Luce: 10K[Hz]     Alpha Las: 100[Hz]     fiber laser: 20K[Hz]
-        Pulse_wdt   = 1.1e-9; % [s]   Luce: 5n[sec]     Alpha Las: 1.1n[sec]   fiber laser: 10n[sec]
+        Pulse_wdt   = 1e-9; % [s]   Luce: 5n[sec]     Alpha Las: 1.1n[sec]   fiber laser: 10n[sec]
         PinPeak     = PinAvg/(f*Pulse_wdt);
         I.in1       = PinPeak/(pi*w0.I^2);% Input  Intensity 1[W/m^2]
         I.in2       = I.in1;        % Input  Intensity 2[W/m^2]
