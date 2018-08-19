@@ -145,7 +145,7 @@ tic
                     end
                     if(mod(i,round(NumOfPoints/10))==0 || i==NumOfPoints || i==2)
                         disp(['Calc Split step. Done: ', num2str(round(100*i/NumOfPoints)),'%',...
-                            '   Pin=', num2str(P.in1(i)), '   Pout=', num2str(P.out(i)),'    Sum=', num2str(P.in1(i)+P.out(i))]);
+                            '   Pin=', num2str(P.in1(i)), '   Pout=', num2str(P.out(i)),'    sum=', num2str(P.in1(i)+P.out(i)),'    \eta=', num2str(P.out(i)/(P.in1(i)+P.out(i))*100)]);
 %                         figure;
 %                         plotyy(r_,abs(Ain1),r_,abs(Aout)); title( num2str(round(100*i/NumOfPoints)));
 %                         drawnow;

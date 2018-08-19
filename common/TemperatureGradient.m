@@ -16,8 +16,8 @@ switch GradType
 %         ApodizedDeltaT  = 0.85*(T.max - T.min);
 %         ApodizedLength  = 0.2*L;
 %         2.
-        ApodizedDeltaT  = 0.3778*(T.max - T.min);
-        ApodizedLength  = 0.2*L;
+        ApodizedDeltaT  = 11/18*(T.max - T.min);
+        ApodizedLength  = 0.5*L;
         
         
         AdiabaticLength = L - ApodizedLength;
@@ -32,7 +32,9 @@ switch GradType
         slop3 = m3*(CrystalPropAxis - L) + T.max;
         TempGrad = [slop1(1:round(NumOfPoints*(0.5*ApodizedLength/L)) - 1),slop2(round(NumOfPoints*(0.5*ApodizedLength/L)):round(NumOfPoints*(1 - 0.5*ApodizedLength/L)) - 1),slop3(round(NumOfPoints*(1 - 0.5*ApodizedLength/L)):end)];
 %         TempGrad = smooth(TempGrad,500);
-        TempGrad = TempGrad';
+%         TempGrad = TempGrad';
+        TempGrad_tv = linspace(0, T.D_tv, samples)';
+        TempGrad    = bsxfun(@minus,TempGrad, TempGrad_tv);
         
 %         coefs = polyfit(CrystalPropAxis, TempGrad, 3);
 %         Poly = polyval(coefs,CrystalPropAxis);
