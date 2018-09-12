@@ -13,7 +13,7 @@ P2wVsT  = 0;
 Pw_1    = 0;
 Pw_vec  = 0;
 
-Attenuation = 1; % energy attenuation due to pusle gaussian shape
+Attenuation = 1; %LUCE: 0.4063; % energy attenuation due to pusle gaussian shape
                  % not in use in case it is covered in the simulation (not in use -> set to 1)
 
 if(strcmp(date,'26_10_17')) % Set gradient and acanning over Tm
@@ -24,7 +24,7 @@ if(strcmp(date,'26_10_17')) % Set gradient and acanning over Tm
 %        - Waist  of intensity = 120e-6 [m]
 transmission = 0.7; % 
 %        - laser type: Alpha Las
-offset   = 0; % Celsius Degrees
+offset   = 3; % Celsius Degrees
 % P2w Vs Temperature
 % for constant temperature of Ts=Te=146.2, Tm=~150.5 --> P2w=14.38
 Pw_1      = 50e-3; %[W]
@@ -73,7 +73,7 @@ P2wVsT    = [0.47  0.45  0.45  0.47  0.45  0.41  0.39  0.36  0.35  0.38  ...
              3.75  3.61  3.50  3.65  3.77  3.80  3.83  3.77  3.67  3.44  ...
              2.74  2.48  2.30  2.34  2.52  2.60  2.68  2.68  2.48  2.38  ...
              2.24  2.14  2.01  1.94  2.06  2.05  2.13  2.19  2.25  2.20  2.12]*1e-3/(transmission*Attenuation); %[W] ?? samples
-
+T = Tm_diff;
 end                                                   
                  
                  
@@ -106,7 +106,7 @@ P2wVsT    = [0.46  0.46  0.42  0.41  0.38  0.37  0.39  0.41  0.45  0.50  ...
              0.72  0.72  0.71  0.66  0.62  0.57  0.57  0.60  0.75  0.82  ...
              0.85  0.85  0.83  0.73  0.69  0.69  0.81  0.95  0.96  1.03  ...
              1.04  1.01  0.97  0.87  0.86  1.09  1.15  1.22  ]*1e-3/(transmission*Attenuation); %[W] ?? samples
-
+T = Tm_diff;
 end                                  
                  
 if(strcmp(date,'22_10_17')) % Set gradient and acanning over Tm
@@ -117,7 +117,7 @@ if(strcmp(date,'22_10_17')) % Set gradient and acanning over Tm
 %        - Waist  of intensity = 120e-6 [m]
 transmission = 0.7; % 
 %        - laser type: Alpha Las
-offset   = 0; % Celsius Degrees
+offset   = 2.4; % Celsius Degrees
 % P2w Vs Temperature
 % for constant temperature of Ts=Te=148.6, Tm=~150 --> P2w=14.24
 Pw_1      = 50e-3; %[W]
@@ -145,7 +145,7 @@ P2wVsT    = [1.52  1.58  1.66  1.80  1.85  1.87  1.89  1.85  1.75  1.77  ...
              7.97  8.05  7.81  7.80  7.85  7.86  7.87  7.83  7.72  7.52  ...
              7.08  6.63  6.49  6.27  6.23  6.27  6.30  6.31  6.31  6.32  ...
              6.20  5.97  5.67  5.30  5.16  5.10  5.09  5.04  5.10  5.17  5.20]*1e-3/(transmission*Attenuation); %[W] ?? samples
-
+T = Tm_diff;
 end                 
                  
 if(strcmp(date,'17_10_17')) % Gradient diff
@@ -184,7 +184,7 @@ if(strcmp(date,'10_10_17')) % Scanning temperature from low to high (as usual)
 %        - Waist  of intensity = 120e-6 [m]
 transmission = 0.7; % 
 %        - laser type: Alpha Las
-offset   = -1.5+3.8; % Celsius Degrees
+offset   = 3.8; % Celsius Degrees
 % P2w Vs Temperature
 Pw_1     = 10e-3; %[W]
 T        = (142:0.1:152) + offset; % Celsius Degrees
@@ -239,7 +239,7 @@ if(strcmp(date,'26_09_17')) % Scanning temperature from low to high (as usual)
 %        - Waist  of intensity = 120e-6 [m]
 transmission = 0.7; % 
 %        - laser type: Alpha Las
-offset   = -1.5; % Celsius Degrees
+offset   = 0; % Celsius Degrees
 % P2w Vs Temperature
 Pw_1     = 50e-3; %[W]
 T        = (145:0.1:156) + offset; % Celsius Degrees
@@ -268,7 +268,7 @@ if(strcmp(date,'24_09_17')) % Scanning temperature from low to high (as usual)
 %        - Waist  of intensity = 120e-6 [m]
 transmission = 0.7; % 
 %        - laser type: Alpha Las
-offset   = -1.5; % Celsius Degrees
+offset   = 0; % Celsius Degrees
 % P2w Vs Temperature
 Pw_1     = 30e-3; %[W]
 T        = (145:0.1:155) + offset; % Celsius Degrees
@@ -296,7 +296,7 @@ if(strcmp(date,'19_09_17')) % Scanning temperature from low to high (as usual)
 %        - Waist  of intensity = 120e-6 [m]
 transmission = 0.7; % 
 %        - laser type: Alpha Las
-offset   = -1.5; % Celsius Degrees
+offset   = 0; % Celsius Degrees
 % P2w Vs Temperature
 Pw_1     = 10e-3; %[W]
 T        = (145:0.1:155) + offset; % Celsius Degrees
@@ -324,7 +324,7 @@ if(strcmp(date,'15_09_17')) % Scanning temperature from low to high (as usual)
 %        - Waist  of intensity = 49e-6 [m]
 transmission = 0.7; % 
 %        - laser type: Luce
-offset   = -1.1; % Celsius Degrees Ghosh Deltak: -0.8
+offset   = 0;%-0.8; % Celsius Degrees Ghosh Deltak: -0.8
 % P2w Vs Temperature
 Pw_1     = 25e-3; %[W]
 T        = (148:0.1:153) + offset; % Celsius Degrees
@@ -352,7 +352,7 @@ if(strcmp(date,'13_09_17')) % Scanning temperature from high to low
 %        - Waist  of intensity = 49e-6 [m]
 transmission = 0.7; % 
 %        - laser type: Luce
-offset   = -1.2; % Celsius Degrees
+offset   = -0.8; % Celsius Degrees
 % P2w Vs Temperature
 Pw_1     = 24.9e-3; %[W]
 T        = (147:0.1:155) + offset; % Celsius Degrees
@@ -426,7 +426,7 @@ if(strcmp(date,'05_09_17'))
 %        - Waist  of intensity  = 49e-6 [m]
 transmission = 0.7; % 
 %        - laser type: Luce
-offset   = -0.3; % Celsius Degrees
+offset   = 0; % Celsius Degrees
 % P2w Vs Temperature
 Pw_1     = 29.20e-3; % or 30e-3;  %[W]
 T        = (147:0.1:151) + offset; % Celsius Degrees
@@ -629,7 +629,7 @@ if(strcmp(date,'03_07_17'))
 %        - Crystal 4x4x50 mm Gamdan
 %        - 532 bandpass filter has 44.5% transmittance
 %        - Waist  of intensity  = <45.5e-6 [m] (maybe sqrt(2)*45.5e-6)
-transmission = 0.445;
+transmission = 0.7;
 %        - laser type: Luce
 
 % P2w Vs Temperature
@@ -652,7 +652,7 @@ if(strcmp(date,'02_07_17'))
 %        - 532 bandpass filter has 44.5% transmittance
 %        - Error: uncalicrated lambda/2 plate - need to be done again
 %        - Waist  of intensity  = <45.5e-6 [m] (maybe sqrt(2)*45.5e-6)
-transmission = 0.445;
+transmission = 0.7;
 %        - laser type: Luce
 
 % P2w Vs Temperature
@@ -675,7 +675,7 @@ if(strcmp(date,'22_05_17'))
 %        - Error: uncalicrated lambda/2 plate - need to be done again
 % transmission = 0.445;
 %        - Waist  of intensity  = <45.5e-6 [m] (maybe sqrt(2)*45.5e-6)
-transmission = 1;%0.32
+transmission = 0.7;%0.32
 %        - laser type: Luce
 
 % P2w Vs Temperature
