@@ -50,6 +50,25 @@ switch GradType
 %         coefs = polyfit(CrystalPropAxis, TempGrad, 3);
 %         Poly = polyval(coefs,CrystalPropAxis);
 %         TempGrad = Poly;
+   case'ApodizationMain_Exp'
+        
+        l = 0.0; % [m] heater width
+        
+        Tm              = (T.max+T.min)/2;
+        T1              = Tm - 5;
+        T2              = Tm + 5;
+
+        part1 = ones(1,round(NumOfPoints*l/L))*T.min;
+        part2 = T.min + (T1-T.min)/(round(NumOfPoints*(L/4-1.5*l)/L))*(1:round(NumOfPoints*(L/4-1.5*l)/L));
+        part3 = ones(1,round(NumOfPoints*l/L))*T1;
+        part4 = T1 + (Tm-T1)/(round(NumOfPoints*(L/4-l)/L))*(1:round(NumOfPoints*(L/4-l)/L));
+        part5 = ones(1,round(NumOfPoints*l/L))*Tm;
+        part6 = Tm + (T2-Tm)/(round(NumOfPoints*(L/4-l)/L))*(1:round(NumOfPoints*(L/4-l)/L));
+        part7 = ones(1,round(NumOfPoints*l/L))*T2;
+        part8 = T2 + (T.max-T2)/(round(NumOfPoints*(L/4-1.5*l)/L))*(1:round(NumOfPoints*(L/4-1.5*l)/L));
+        part9 = ones(1,round(NumOfPoints*l/L))*T.max;
+        
+        TempGrad = [part1 part2 part3 part4 part5 part6 part7 part8 part9]';
         
 case'Exp_5x5x50'
         CopperLegth     = 10e-3;

@@ -16,15 +16,235 @@ Pw_vec  = 0;
 Attenuation = 1; %LUCE: 0.4063; % energy attenuation due to pusle gaussian shape
                  % not in use in case it is covered in the simulation (not in use -> set to 1)
 
+if(strcmp(date,'27_09_18_4')) % eta vs Pw
+% Notes: - Temperture profile is apodized: T1=Tm-14, T2=Tm-5, % T3=149, T4=Tm+5, T5=Tm+14
+%        - Using new gradient oven
+%        - Crystal 5x5x50 mm eksma
+%        - FL532-10 laser line filter has 0.69 transmittance
+%        - Power Measurments: w-Thermal 2w-Thermal(>11mW), PD-3W(<11mW)
+%        - Waist  of intensity = 130e-6 [m]
+transmission = 0.69; % 
+%        - laser type: Alpha Las
+offset   = 0; % Celsius Degrees
+
+Temp    =  149+offset;
+Pw_vec  =  [0.96 5.27 10    15    20   25   30   35   40 45 50 55 60 65 70 75 80 85 90 95 100]*1e-3; %[W]
+P2wVsPw =  [0.04 0.77 2.06  3.62  5.42 7.36 9.00 10.8 12 14 16 18 19 21 22 24 25 26 27 28 29]*1e-3/(transmission*Attenuation); %[W]
+
+end                 
+                 
+if(strcmp(date,'27_09_18_3')) % eta vs Pw
+% Notes: - Temperture profile is apodized: T1=Tm-14, T2=Tm-5, % T3=145, T4=Tm+5, T5=Tm+14
+%        - Using new gradient oven
+%        - Crystal 5x5x50 mm eksma
+%        - FL532-10 laser line filter has 0.69 transmittance
+%        - Power Measurments: w-Thermal 2w-Thermal(>11mW), PD-3W(<11mW)
+%        - Waist  of intensity = 130e-6 [m]
+transmission = 0.69; % 
+%        - laser type: Alpha Las
+offset   = 0; % Celsius Degrees
+
+Temp    =  145+offset;
+Pw_vec  =  [0.97 5.14 10    15    20   25   30    35   40 45 50 55 60 65 70 75 80 85 90 95 100]*1e-3; %[W]
+P2wVsPw =  [0.06 1.00 2.64  4.28  6.42 8.59 10.34 11.9 15 17 20 22 25 26 29 31 33 35 37 38 41]*1e-3/(transmission*Attenuation); %[W]
+
+end                 
+                 
+if(strcmp(date,'27_09_18_2')) % eta vs Pw
+% Notes: - Temperture profile is apodized: T1=Tm-14, T2=Tm-5, % T3=141, T4=Tm+5, T5=Tm+14
+%        - Using new gradient oven
+%        - Crystal 5x5x50 mm eksma
+%        - FL532-10 laser line filter has 0.69 transmittance
+%        - Power Measurments: w-Thermal 2w-Thermal(>11mW), PD-3W(<11mW)
+%        - Waist  of intensity = 130e-6 [m]
+transmission = 0.69; % 
+%        - laser type: Alpha Las
+offset   = 0; % Celsius Degrees
+
+Temp    =  141+offset;
+Pw_vec  =  [0.97 5.5  10    15    20   25   30   35 40 45 50 55 60 65 70 75 80 85 90 95 100]*1e-3; %[W]
+P2wVsPw =  [0.04 0.79 1.86  3.46  4.9  7.13 9.20 11 13 15 18 20 23 24 26 29 30 34 36 37 41]*1e-3/(transmission*Attenuation); %[W]
+
+end
+                 
+if(strcmp(date,'27_09_18_1')) % eta vs Pw
+% Notes: - Temperture profile is apodized: T1=Tm-14, T2=Tm-5, % T3=137, T4=Tm+5, T5=Tm+14
+%        - Using new gradient oven
+%        - Crystal 5x5x50 mm eksma
+%        - FL532-10 laser line filter has 0.69 transmittance
+%        - Power Measurments: w-Thermal 2w-Thermal(>11mW), PD-3W(<11mW)
+%        - Waist  of intensity = 130e-6 [m]
+transmission = 0.69; % 
+%        - laser type: Alpha Las
+offset   = 0; % Celsius Degrees
+
+Temp    =  137+offset;
+Pw_vec  =  [0.95 4.9  10    15    20    25   30   35 40 45 50 55 60 65 70 75 80 85 90 95 100]*1e-3; %[W]
+P2wVsPw =  [0.03 0.62 1.75  3.43  5.85  7.60 9.90 12 14 17 19 21 24 26 29 31 33 36 39 42 44]*1e-3/(transmission*Attenuation); %[W]
+
+end                                  
+                 
+
+if(strcmp(date,'26_09_18_2')) % Set gradient and acanning over Tm
+% Notes: - Temperture profile is apodized: T1=Tm-14, T2=Tm-5, % T3=Tm, T4=Tm+5, T5=Tm+14
+%        - Using new gradient oven
+%        - Crystal 5x5x50 mm eksma
+%        - FL532-10 laser line filter has 0.69 transmittance
+%        - Power Measurments: w-Thermal 2w-Thermal(>7mW), PD-3W(<7mW)
+%        - Waist  of intensity = 130e-6 [m]
+transmission = 0.69; % 
+%        - laser type: Alpha Las
+offset   = 0; % Celsius Degrees
+% P2w Vs Temperature
+Pw_1      = 20e-3; %[W] actually ~21mW
+
+Tm_diff   = [130   131   132   132.5 133.5 134   134.5 135.5 136   137   ...
+             137.5 138.5 139   140   140.5 141.5 142   143   143.5 144.5 ...
+             145   146   146.5 147.5 148   149   149.5 150.5 151   152   ...
+             152.5 153.5] + offset; % Celsius Degrees - middle of crystal
+
+P2wVsT    = [0.25  0.37  0.64  0.91  2.14  2.21  2.84  4.22  4.87  6.05  ...
+             6.36  4.70  4.75  5.94  6.27  5.54  6.37  6.67  6.60  7.00  ...
+             7.03  6.65  6.42  5.05  5.19  6.20  6.68  5.92  4.53  2.68  ...
+             1.85  0.87]*1e-3/(transmission*Attenuation); %[W] ?? samples
+T = Tm_diff;
+end                 
+                 
+if(strcmp(date,'26_09_18_1')) % Set gradient and acanning over Tm
+% Notes: - Temperture profile is apodized: T1=Tm-14, T2=Tm-5, % T3=Tm, T4=Tm+5, T5=Tm+14
+%        - Using new gradient oven
+%        - Crystal 5x5x50 mm eksma
+%        - FL532-10 laser line filter has 0.69 transmittance
+%        - Power Measurments: w-Thermal 2w-Thermal(>7mW), PD-3W(<7mW)
+%        - Waist  of intensity = 130e-6 [m]
+transmission = 0.69; % 
+%        - laser type: Alpha Las
+offset   = 0; % Celsius Degrees
+% P2w Vs Temperature
+Pw_1      = 99e-3; %[W]
+
+Tm_diff   = [127   128   129   130   131   132   132.5 133.5 134 135   ...
+             135.5 136.5 137   138   138.5 139.5 140   140.5 141 142   ...
+             142.5 143   143.5 144   145   145.5 146.5 147   148 148.5 ...
+             149.5 150   151   151.5 152   152.5 153   153.5 154 155.5 ...
+             156] + offset; % Celsius Degrees - middle of crystal
+
+P2wVsT    = [1.27 1.45 1.82 2.75 4.22 6.94 9  15 19 29 ...
+             34   42   44   43   40   40   44 45 40 40 ...
+             46   48   46   46   41   39   34 30 30 29 ...
+             27   26   26   27   21   15   13 11 9  6  ...
+             5]*1e-3/(transmission*Attenuation); %[W] ?? samples
+T = Tm_diff;
+end
+                 
+if(strcmp(date,'25_09_18')) % Set gradient and acanning over Tm
+% Notes: - Temperture profile is apodized: T1=Tm-14, T2=Tm-5, % T3=Tm, T4=Tm+5, T5=Tm+14
+%        - Using new gradient oven
+%        - Crystal 5x5x50 mm eksma
+%        - FL532-10 laser line filter has 0.69 transmittance
+%        - Power Measurments: w-Thermal 2w-PD-3W
+%        - Waist  of intensity = 130e-6 [m]
+transmission = 0.69; % 
+%        - laser type: Alpha Las
+offset   = 0; % Celsius Degrees
+% P2w Vs Temperature
+Pw_1      = 50e-3; %[W] actually ~52mW
+
+Tm_diff   = [129   130   131   131.5 132   132.5 133   133.5 134   134.5 ...
+             135   136   136.5 137.5 138   139   139.5 140.5 141   142   ...
+             142.5 143.5 144   144.5 145.5 146   147   147.5 148.5 149   ...
+             150   151   151.5 152   152.5 153   153.5 154   155   155.5 ...
+             156] + offset; % Celsius Degrees - middle of crystal
+
+P2wVsT    = [0.51  0.86  1.45  1.86  2.74  3.12  4.68  5.82  7.85  9.82  ...
+             12.00 16.00 18.00 20.00 19.00 16.00 17.00 20.00 18.00 19.00 ...
+             22.00 20.00 22.00 22.00 21.00 19.00 16.0  16.00 16.00 17.00 ...
+             17.00 14.00 11.60 8.74  6.76  4.95  3.71  3.07  2.12  1.86  ...
+             1.49]*1e-3/(transmission*Attenuation); %[W] ?? samples
+T = Tm_diff;
+end
+                 
+if(strcmp(date,'24_09_18_2')) % Constant temperature
+%        - Using new gradient oven
+%        - Crystal 5x5x50 mm eksma
+%        - FL532-10 laser line filter has 0.69 transmittance
+%        - Power Measurments: w-Thermal 2w-PD-3W
+%        - Waist  of intensity = 130e-6 [m]
+transmission = 0.69; % 
+%        - laser type: Alpha Las
+offset   = 0; % Celsius Degrees
+% P2w Vs Temperature
+Pw_1      = 50e-3; %[W] actually ~52mW
+
+Tm_diff   = 130:1:155 + offset; % Celsius Degrees - middle of crystal
+
+P2wVsT    = [0.68  0.85  1.05  1.27  1.71  2.89  5.18  7.81  9.16  10.77 9.85  9.68 ...
+             11.10 11.90 12.53 13.87 14.08 12.72 10.70 7.88  5.83  4.57  3.88  3.38 ...
+             3.01  2.66]*1e-3/(transmission*Attenuation); %[W] ?? samples
+T = Tm_diff;
+end
+
+if(strcmp(date,'24_09_18_1')) % Set gradient and acanning over Tm
+% Notes: - Temperture profile is apodized: T1=Tm-9, T2=Tm-3.5, % T3=Tm, T4=Tm+3.5, T5=Tm+9
+%        - Using new gradient oven
+%        - Crystal 5x5x50 mm eksma
+%        - FL532-10 laser line filter has 0.69 transmittance
+%        - Power Measurments: w-Thermal 2w-PD-3W
+%        - Waist  of intensity = 130e-6 [m]
+transmission = 0.69; % 
+%        - laser type: Alpha Las
+offset   = 0; % Celsius Degrees
+% P2w Vs Temperature
+Pw_1      = 50e-3; %[W] actually ~52mW
+
+Tm_diff   = [133.5 134.5 135.5 136.5 137  137.3 137.6  138   138.3 138.6 ...
+             139   140   140.5 141.5 142  143   143.5  144.5 145   146   ...
+             146.3 146.5 147   147.3 148  148.5 149.5  150   151   152   ...
+             153   154] + offset; % Celsius Degrees - middle of crystal
+
+P2wVsT    = [0.67  0.96  1.51  2.57  3.47  3.81  4.60  6.3  6.86  7.96  ...
+             10.10 14.00 15.37 16.35 15.62 14.88 15.26 13.13 11.23 8.80 ...
+             10.33 10.47 7.97  7.45  5.52  3.93  2.85  2.64  2     1.52 ...
+             1.25  1.14]*1e-3/(transmission*Attenuation); %[W] ?? samples
+T = Tm_diff;
+end
+                 
+if(strcmp(date,'20_09_18')) % Set gradient and acanning over Tm
+% Notes: - Temperture profile is not apodized well: T1=Tm-9, T2=T1+3.5, % T3=Tm, T4=T5-3.5, T5=Tm+9
+%        - Using new gradient oven
+%        - Crystal 5x5x50 mm eksma
+%        - FL532-10 laser line filter has 0.69 transmittance
+%        - Power Measurments: w-Thermal 2w-PD-3W
+%        - Waist  of intensity = 130e-6 [m]
+transmission = 0.69; % 
+%        - laser type: Alpha Las
+offset   = 0; % Celsius Degrees
+% P2w Vs Temperature
+Pw_1      = 50e-3; %[W] actually ~52mW
+
+Tm_diff   = [125   126   126.5 127.5 128   129 ...
+             129.5 130.5 131   132   132.5 133.5 134   135   135.5 136.5 ...
+             137   137.2 137.4 137.7 138   138.5 139.5 140   141   141.5 ...
+             142.5 143   144   144.5 145.5 146   146.5 146.7 147   147.5 ...
+             148.5 149   150   150.5 151.5 152   153   153.5 154.5 155] + offset; % Celsius Degrees - middle of crystal
+
+P2wVsT    = [0.25  0.27  0.27  0.31  0.33  0.37 ...
+             0.4   0.46  0.48  0.56  0.72  0.97  0.95  1.54  2.34 3.41 ...
+             3.69  4.33  4.9   6.5   8.08  11.76 16.67 16.63 12.3 12.83 ...
+             14.92 13.78 13.66 11.18 13.34 13.22 9.46  7.2   5.35 4.91 ...
+             3.72  2.81  2.1   2.15  1.63  1.42  1.29  1.04  0.94 0.97]*1e-3/(transmission*Attenuation); %[W] ?? samples
+T = Tm_diff;
+end
+                 
 if(strcmp(date,'26_10_17')) % Set gradient and acanning over Tm
 % Notes: - Using Lab gradient oven (the one I have created using the new const temp oven) for Tm measurments
 %        - Crystal 5x5x50 mm eksma 2A641
-%        - FL532-10 laser line filter has 0.7 transmittance
+%        - FL532-10 laser line filter has 0.69 transmittance
 %        - Power Measurments: w-Thermal 2w-PD-3W
 %        - Waist  of intensity = 120e-6 [m]
-transmission = 0.7; % 
+transmission = 0.69; % 
 %        - laser type: Alpha Las
-offset   = 3; % Celsius Degrees
+offset   = 0; % Celsius Degrees
 % P2w Vs Temperature
 % for constant temperature of Ts=Te=146.2, Tm=~150.5 --> P2w=14.38
 Pw_1      = 50e-3; %[W]
@@ -80,10 +300,10 @@ end
 if(strcmp(date,'24_10_17')) % Set gradient and acanning over Tm
 % Notes: - Using Lab gradient oven (the one I have created using the new const temp oven) for Tm measurments
 %        - Crystal 5x5x50 mm eksma 2A641
-%        - FL532-10 laser line filter has 0.7 transmittance
+%        - FL532-10 laser line filter has 0.69 transmittance
 %        - Power Measurments: w-Thermal 2w-PD-3W
 %        - Waist  of intensity = 120e-6 [m]
-transmission = 0.7; % 
+transmission = 0.69; % 
 %        - laser type: Alpha Las
 offset   = 0; % Celsius Degrees
 % P2w Vs Temperature
@@ -112,12 +332,12 @@ end
 if(strcmp(date,'22_10_17')) % Set gradient and acanning over Tm
 % Notes: - Using Lab gradient oven (the one I have created using the new const temp oven) for Tm measurments
 %        - Crystal 5x5x50 mm eksma 2A641
-%        - FL532-10 laser line filter has 0.7 transmittance
+%        - FL532-10 laser line filter has 0.69 transmittance
 %        - Power Measurments: w-Thermal 2w-PD-3W
 %        - Waist  of intensity = 120e-6 [m]
-transmission = 0.7; % 
+transmission = 0.69; % 
 %        - laser type: Alpha Las
-offset   = 2.4; % Celsius Degrees
+offset   = 0; % Celsius Degrees
 % P2w Vs Temperature
 % for constant temperature of Ts=Te=148.6, Tm=~150 --> P2w=14.24
 Pw_1      = 50e-3; %[W]
@@ -151,10 +371,10 @@ end
 if(strcmp(date,'17_10_17')) % Gradient diff
 % Notes: - Using Lab gradient oven (the one I have created using the new const temp oven) for gradient measurments
 %        - Crystal 5x5x50 mm eksma 2A641
-%        - FL532-10 laser line filter has 0.7 transmittance
+%        - FL532-10 laser line filter has 0.69 transmittance
 %        - Power Measurments: w-Thermal 2w-PD-3W
 %        - Waist  of intensity = 120e-6 [m]
-transmission = 0.7; % 
+transmission = 0.69; % 
 %        - laser type: Alpha Las
 offset   = 0; % Celsius Degrees
 % P2w Vs Temperature
@@ -179,10 +399,10 @@ end
 if(strcmp(date,'10_10_17')) % Scanning temperature from low to high (as usual)
 % Notes: - Using Lab gradient oven (the one I have created using the new const temp oven) for constant temperature
 %        - Crystal 5x5x50 mm eksma 2A641
-%        - FL532-10 laser line filter has 0.7 transmittance
+%        - FL532-10 laser line filter has 0.69 transmittance
 %        - Power Measurments: w-Thermal 2w-PD-3W
 %        - Waist  of intensity = 120e-6 [m]
-transmission = 0.7; % 
+transmission = 0.69; % 
 %        - laser type: Alpha Las
 offset   = 3.8; % Celsius Degrees
 % P2w Vs Temperature
@@ -206,11 +426,11 @@ end
 if(strcmp(date,'01_10_17')) % Scanning temperature from low to high (as usual)
 % Notes: - Using Lab gradient oven (the one I have created using the gradient with the teflon chunks) for constant temperature
 %        - Crystal 5x5x50 mm eksma 2A641
-%        - FL532-10 laser line filter has 0.7 transmittance
+%        - FL532-10 laser line filter has 0.69 transmittance
 %        - Power Measurments: w-Thermal 2w-PD-3W
 %        - Waist  of intensity = 120e-6 [m]
 %        - ** After temperature ~147 the laser was very unstable !! **
-transmission = 0.7; % 
+transmission = 0.69; % 
 %        - laser type: Alpha Las
 offset   = -1.5; % Celsius Degrees
 % P2w Vs Temperature
@@ -234,10 +454,10 @@ end
 if(strcmp(date,'26_09_17')) % Scanning temperature from low to high (as usual)
 % Notes: - Using Eksma oven for constant temperature
 %        - Crystal 5x5x50 mm eksma 2A641
-%        - FL532-10 laser line filter has 0.7 transmittance
+%        - FL532-10 laser line filter has 0.69 transmittance
 %        - Power Measurments: w-Thermal 2w-PD-3W
 %        - Waist  of intensity = 120e-6 [m]
-transmission = 0.7; % 
+transmission = 0.69; % 
 %        - laser type: Alpha Las
 offset   = 0; % Celsius Degrees
 % P2w Vs Temperature
@@ -263,10 +483,10 @@ end
 if(strcmp(date,'24_09_17')) % Scanning temperature from low to high (as usual)
 % Notes: - Using Eksma oven for constant temperature
 %        - Crystal 5x5x50 mm eksma 2A641
-%        - FL532-10 laser line filter has 0.7 transmittance
+%        - FL532-10 laser line filter has 0.69 transmittance
 %        - Power Measurments: w-Thermal 2w-PD-3W
 %        - Waist  of intensity = 120e-6 [m]
-transmission = 0.7; % 
+transmission = 0.69; % 
 %        - laser type: Alpha Las
 offset   = 0; % Celsius Degrees
 % P2w Vs Temperature
@@ -291,10 +511,10 @@ end
 if(strcmp(date,'19_09_17')) % Scanning temperature from low to high (as usual)
 % Notes: - Using Eksma oven for constant temperature
 %        - Crystal 5x5x50 mm eksma 2A641
-%        - FL532-10 laser line filter has 0.7 transmittance
+%        - FL532-10 laser line filter has 0.69 transmittance
 %        - Power Measurments: w-Thermal 2w-PD-3W
 %        - Waist  of intensity = 120e-6 [m]
-transmission = 0.7; % 
+transmission = 0.69; % 
 %        - laser type: Alpha Las
 offset   = 0; % Celsius Degrees
 % P2w Vs Temperature
@@ -319,10 +539,10 @@ end
 if(strcmp(date,'15_09_17')) % Scanning temperature from low to high (as usual)
 % Notes: - Using Eksma oven for constant temperature
 %        - Crystal 5x5x50 mm eksma 2A641
-%        - FL532-10 laser line filter has 0.7 transmittance
+%        - FL532-10 laser line filter has 0.69 transmittance
 %        - Power Measurments: w-PD-3W 2w-PD-UV
 %        - Waist  of intensity = 49e-6 [m]
-transmission = 0.7; % 
+transmission = 0.69; % 
 %        - laser type: Luce
 offset   = 0;%-0.8; % Celsius Degrees Ghosh Deltak: -0.8
 % P2w Vs Temperature
@@ -347,10 +567,10 @@ end
 if(strcmp(date,'13_09_17')) % Scanning temperature from high to low
 % Notes: - Using Eksma oven for constant temperature
 %        - Crystal 5x5x50 mm eksma 2A641
-%        - FL532-10 laser line filter has 0.7 transmittance
+%        - FL532-10 laser line filter has 0.69 transmittance
 %        - Power Measurments: w-PD-3W 2w-PD-3W
 %        - Waist  of intensity = 49e-6 [m]
-transmission = 0.7; % 
+transmission = 0.69; % 
 %        - laser type: Luce
 offset   = -0.8; % Celsius Degrees
 % P2w Vs Temperature
@@ -375,7 +595,7 @@ if(strcmp(date,'06_09_17_2'))% quick measurment to avoid Pw degradation (as happ
 %        - FL532-10 laser line filter has ?? transmittance
 %        - Power Measurments: w-PD-3W 2w-PD-3W
 %        - Waist  of intensity  = 49e-6 [m]
-transmission = 0.7; % 
+transmission = 0.69; % 
 %        - laser type: Luce
 offset   = 0; % Celsius Degrees
 % P2w Vs Temperature
@@ -402,7 +622,7 @@ if(strcmp(date,'06_09_17'))
 %        - FL532-10 laser line filter has ?? transmittance
 %        - Power Measurments: w-PD-3W 2w-PD-3W
 %        - Waist  of intensity  = 49e-6 [m]
-transmission = 0.7; % 
+transmission = 0.69; % 
 %        - laser type: Luce
 offset   = 0; % Celsius Degrees
 % P2w Vs Temperature
@@ -424,7 +644,7 @@ if(strcmp(date,'05_09_17'))
 %        - FL532-10 laser line filter has ?? transmittance
 %        - Power Measurments: w-PD-3W 2w-PD-3W
 %        - Waist  of intensity  = 49e-6 [m]
-transmission = 0.7; % 
+transmission = 0.69; % 
 %        - laser type: Luce
 offset   = 0; % Celsius Degrees
 % P2w Vs Temperature
@@ -456,7 +676,7 @@ if(strcmp(date,'29_08_17_3'))
 %        - FL532-10 laser line filter has ?? transmittance
 %        - Power Measurments: w-PD-3W 2w-PD-3W
 %        - Waist  of intensity  = 120e-6 [m]
-transmission = 0.7; % 
+transmission = 0.69; % 
 %        - laser type: Alpha Las
 
 %        - Power Measurments: w-PD-3W 2w-PD-3W
@@ -473,7 +693,7 @@ if(strcmp(date,'29_08_17_2'))
 %        - FL532-10 laser line filter has ?? transmittance
 %        - Power Measurments: w-PD-3W 2w-PD-3W
 %        - Waist  of intensity  = 120e-6 [m]
-transmission = 0.7; % 
+transmission = 0.69; % 
 %        - laser type: Alpha Las
 offset   = 0; % Celsius Degrees
 % P2w Vs Temperature
@@ -503,7 +723,7 @@ if(strcmp(date,'29_08_17'))
 %        - FL532-10 laser line filter has ?? transmittance
 %        - Power Measurments: w-Thermal 2w-PD-3W
 %        - Waist  of intensity  = 120e-6 [m]
-transmission = 0.7; % 
+transmission = 0.69; % 
 %        - laser type: Alpha Las
 offset   = 0.7; % Celsius Degrees
 % P2w Vs Temperature
@@ -535,7 +755,7 @@ if(strcmp(date,'23_08_17_3'))
 %        - FL532-10 laser line filter has ?? transmittance
 %        - Power Measurments: w-Thermal 2w-PD-3W
 %        - Waist  of intensity  = 95e-6 [m]
-transmission = 0.7; % 
+transmission = 0.69; % 
 %        - laser type: Alpha Las
 offset   = 0; % Celsius Degrees
 % P2w Vs Temperature
@@ -561,7 +781,7 @@ if(strcmp(date,'23_08_17_2'))
 %        - FL532-10 laser line filter has ?? transmittance
 %        - Power Measurments: w-PD-3W 2w-PD-3W
 %        - Waist  of intensity  = 95e-6 [m]
-transmission = 0.7; % 
+transmission = 0.69; % 
 %        - laser type: Alpha Las
 offset   = 0; % Celsius Degrees
 % P2w Vs Temperature
@@ -583,7 +803,7 @@ if(strcmp(date,'23_08_17_1'))
 %        - FL532-10 laser line filter has ?? transmittance
 %        - Power Measurments: w-PD-3W 2w-PD-3W
 %        - Waist  of intensity  = 95e-6 [m]
-transmission = 0.7; % 
+transmission = 0.69; % 
 %        - laser type: Alpha Las
 offset   = 0; % Celsius Degrees
 % P2w Vs Temperature
@@ -606,7 +826,7 @@ if(strcmp(date,'22_08_17'))
 %        - FL532-10 laser line filter has ?? transmittance
 %        - Power Measurments: w-thermal 2w-thermal
 %        - Waist  of intensity  = 95e-6 [m]
-transmission = 0.7; % 
+transmission = 0.69; % 
 %        - laser type: Alpha Las
 offset   = 0; % Celsius Degrees
 % P2w Vs Temperature
