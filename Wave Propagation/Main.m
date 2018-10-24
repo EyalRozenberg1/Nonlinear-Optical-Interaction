@@ -68,7 +68,7 @@ end
 
 
 if(Print.P2wVsTm)
-TmSamples          = 200;               % Number of samples
+TmSamples          = 50;               % Number of samples
 [figNum, Tmax, Tmin] = CalculatePoutVsTm(figNum, GradType, T, TmSamples, CrystalPropAxis, NumOfPoints, L, InteractionType, Lambda, Pol, refIdx, k, w, PinPeak, Undepleted, w0, PlaneGauss_, I, dx_prop, c, eps0, deff, A_from_I, Kappa, Print, P_from_A, samples);
 Print.P2wVsTm=0;
 % T.max            = Tmax;
