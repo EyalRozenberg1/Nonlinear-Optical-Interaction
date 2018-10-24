@@ -63,7 +63,7 @@ elseif(Print.P2wVsTm)
 	figNum = figNum + 1;
     FigHandle = figure(figNum);set(gcf,'color','white');
     % set(FigHandle, 'Position', [83 374 576 512]);
-
+%     Efficiency = (Efficiency-min(Efficiency))/(max(Efficiency)-min(Efficiency));
     plot(T, Efficiency,'b*-','Linewidth',2);
     xlim([min(T) max(T)]);
     

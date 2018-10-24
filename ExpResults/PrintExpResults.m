@@ -806,6 +806,7 @@ if(Print.Exp.P2wVsT)
     Pw_1        = Pw_1/(f*Pulse_wdt);
     P2wVsT      = P2wVsT/(f*Pulse_wdt);
     Efficiency  = P2wVsT/Pw_1;
+%     Efficiency = (Efficiency-min(Efficiency))/(max(Efficiency)-min(Efficiency));
     figNum = figNum + 1;
     FigHandle = figure(figNum);set(gcf,'color','white');
     set(FigHandle, 'Position', [70, 50, 980, 600]);
