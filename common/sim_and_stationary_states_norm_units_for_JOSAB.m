@@ -88,8 +88,14 @@ d2H_dP1         =   -1 ./ ( 8 * abs( DeltaGamma - theta ) ) + ...
                     DeltaGamma ./ ( 4 * abs( DeltaGamma - theta ).^2 );
 
 nu              = 1i * sqrt( d2H_dQ1 .* d2H_dP1 );
-d_DG_dxi        = ( DG_max - DG_min ) ./ L_xi; % TODO: change to nonlinear as well
-r               = abs(1./nu .* dP1_0_d_Gamma .* d_DG_dxi./ P3); %1./abs(nu) .* abs( dP1_0_d_Gamma ) .* d_DG_dxi ./ P3
+
+% d_DG_dxi        = ( DG_max - DG_min ) ./ L_xi; % TODO: change to nonlinear as well
+% r               = abs(1./nu .* dP1_0_d_Gamma .* d_DG_dxi./ P3); %1./abs(nu) .* abs( dP1_0_d_Gamma ) .* d_DG_dxi ./ P3
+
+% --
+d_DG_dxi        = abs((DeltaGamma(2:end)-DeltaGamma(1:end-1))./(xi(2:end)-xi(1:end-1)));
+r               = abs(1./nu(2:end) .* dP1_0_d_Gamma(2:end) .* d_DG_dxi./ P3(2:end)); %1./abs(nu) .* abs( dP1_0_d_Gamma ) .* d_DG_dxi ./ P3
+% --
 
 % r = abs(...
 %         ( (0.5*(abs(q1_sq)+abs(q2_sq))-abs(q3_sq)) - (0.5*(abs(q1_minus).^2+abs(q2_minus).^2) - abs(q3_minus).^2) )./...
@@ -97,9 +103,15 @@ r               = abs(1./nu .* dP1_0_d_Gamma .* d_DG_dxi./ P3); %1./abs(nu) .* a
 %         );
 figNum = figNum + 1;
 figure(figNum);set(gcf,'color','white');
-plot( xi.*sqrt(P3), r);
+
+% plot( xi, r);
+
+% --
+plot( xi(2:end).*sqrt(P3(2:end)), r);
+% --
+
 set(gca, 'FontName', font_name);
-xlabel('\xi');
+xlabel('\xiP_3^{1/2}');
 ylabel('r_{nl}');
 FormatPlotFontSizeNameLine( gca, gcf, font_size, 'times', line_width );
 axis( [ min( xi.*sqrt(P3) ) max( xi.*sqrt(P3) ) 0 max(r)*1.05 ] );
@@ -113,9 +125,9 @@ figNum = figNum + 1;
 figure(figNum)
 hold on;
 % plot( xi.*sqrt(P3), P1./P3); Changed at 2017_06_20
-plot( DeltaGamma.*sqrt(P3), P1./P3);
+plot( DeltaGamma./sqrt(P3), P1./P3);
 % plot( xi.*sqrt(P3), P1_minus./P3, 'k--', 'LineWidth', line_width ); Changed at 2017_06_20
-plot( DeltaGamma.*sqrt(P3), P1_minus./P3, 'k--', 'LineWidth', line_width );
+plot( DeltaGamma./sqrt(P3), P1_minus./P3, 'k--', 'LineWidth', line_width );
 set(gca, 'FontName', font_name);
 FormatPlotFontSizeNameLine( gca, gcf, font_size, 'times', line_width );
 ylabel('P_1/P_3');
