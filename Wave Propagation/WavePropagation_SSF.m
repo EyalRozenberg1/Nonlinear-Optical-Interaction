@@ -144,7 +144,17 @@ tic
                         disp(['Calc Split step. Done: ', num2str(round(100*i/NumOfPoints)),'%',...
                             '   Pin=', num2str(P.in1(i)), '   Pout=', num2str(P.out(i)),'    Sum=', num2str(P.in1(i)+P.out(i))]);
 %                         figure;
-%                         plotyy(r_,abs(Ain1),r_,abs(Aout)); title( num2str(round(100*i/NumOfPoints)));
+% %                         plotyy(r_,abs(Ain1),r_,abs(Aout)); title( num2str(round(100*i/NumOfPoints)));
+%                         title( ['\zeta=',num2str(round(100*i/NumOfPoints)),'%L']);
+%                         yyaxis left
+% %                         plot(r_,abs(Aout)./max(abs(Aout)),'b','linewidth',2);
+%                         plot([-r_ r_],[abs(Aout)./max(abs(Aout))  abs(Aout)./max(abs(Aout))],'b-','linewidth',2);
+%                         xlabel('transverse axis [m]')
+%                         ylabel('normalized |A_{2\omega}|')
+%                         yyaxis right
+% %                         plot(r_,abs(Ain1)./max(abs(Ain1)),'r','linewidth',2);
+%                         plot([-r_ r_],[abs(Ain1)./max(abs(Ain1))  abs(Ain1)./max(abs(Ain1))],'r-','linewidth',2);
+%                         ylabel('normalized |A_{\omega}|')
 %                         drawnow;
                     end
                 end
