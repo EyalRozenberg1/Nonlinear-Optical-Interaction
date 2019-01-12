@@ -34,7 +34,7 @@ P = 0;
     NumOfPoints, CrystalPropAxis, c, eps0,...
     k, w, refIdx, A_from_I, I_from_A,...
     Kappa, w0, P_from_A, samples, PinPeak,...
-    Pulse_wdt, f, xi] = SetVal( InteractionType, Type );
+    Pulse_wdt, f, xi, PinAvg] = SetVal( InteractionType, Type );
 
 
 
@@ -61,19 +61,19 @@ if(Print.P2w_vs_GradDiff)
 GradSamples          = 200;               % Number of samples
 [figNum, Tmax, Tmin] = CalculatePoutVsTempGradDiff(figNum, GradType, T, GradSamples, CrystalPropAxis, NumOfPoints, L, InteractionType, Lambda, Pol, refIdx, k, w, PinPeak, Undepleted, w0, PlaneGauss_, I, dx_prop, c, eps0, deff, A_from_I, Kappa, Print, P_from_A, samples);
 Print.P2w_vs_GradDiff=0;
-% T.max            = Tmax;
-% T.min            = Tmin;
-% [TempGrad]       = TemperatureGradient(T, L, CrystalPropAxis, GradType, NumOfPoints);
+T.max            = Tmax;
+T.min            = Tmin;
+[TempGrad]       = TemperatureGradient(T, L, CrystalPropAxis, GradType, NumOfPoints);
 end
 
 
 if(Print.P2wVsTm)
-TmSamples          = 50;               % Number of samples
+TmSamples          = 100;               % Number of samples
 [figNum, Tmax, Tmin] = CalculatePoutVsTm(figNum, GradType, T, TmSamples, CrystalPropAxis, NumOfPoints, L, InteractionType, Lambda, Pol, refIdx, k, w, PinPeak, Undepleted, w0, PlaneGauss_, I, dx_prop, c, eps0, deff, A_from_I, Kappa, Print, P_from_A, samples);
 Print.P2wVsTm=0;
-% T.max            = Tmax;
-% T.min            = Tmin;
-% [TempGrad]       = TemperatureGradient(T, L, CrystalPropAxis, GradType, NumOfPoints);
+T.max            = Tmax;
+T.min            = Tmin;
+[TempGrad]       = TemperatureGradient(T, L, CrystalPropAxis, GradType, NumOfPoints);
 end
 
 if(Print.P2wVsw0)
@@ -88,7 +88,7 @@ end
 
 if(Print.P2w_vs_Pw)
 NumSamples           = 20;%100                 % Number of samples
-[figNum] = CalculatePoutVsPin0(PinPeak, Undepleted, w0, PlaneGauss_, figNum, NumOfPoints, I, CrystalPropAxis, dx_prop, NumSamples, TempGrad, Lambda, Pol, refIdx, k, w, c, eps0, InteractionType, deff, A_from_I, Kappa, Print, P_from_A, samples);
+[figNum] = CalculatePoutVsPin0(PinAvg, Undepleted, w0, PlaneGauss_, figNum, NumOfPoints, I, CrystalPropAxis, dx_prop, NumSamples, TempGrad, Lambda, Pol, refIdx, k, w, c, eps0, InteractionType, deff, A_from_I, Kappa, Print, P_from_A, samples, T);
 Print.P2w_vs_Pw=0;
 end
 
@@ -116,7 +116,7 @@ end
 
 % Run normalized sationary states
 if(Print.NormST)
-[figNum] = sim_and_stationary_states_norm_units_for_JOSAB(CrystalPropAxis, A, Omega, K, DeltaK, deff, c, figNum);
+[figNum] = sim_and_stationary_states_norm_units_for_JOSAB2(CrystalPropAxis, A, Omega, K, DeltaK, deff, c, figNum);
 end
 
 if(Print.Exp.Results)

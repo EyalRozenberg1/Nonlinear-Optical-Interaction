@@ -1,4 +1,4 @@
-function [figNum] = CalculatePoutVsPin0(PinPeak, Undepleted,w0, PlaneGauss_, figNum, NumOfPoints, I, CrystalPropAxis, dx_prop, NumSamples, TempGrad, Lambda, Pol, refIdx, k, w, c, eps0, InteractionType, deff, A_from_I, Kappa, Print, P_from_A, samples)
+function [figNum] = CalculatePoutVsPin0(PinAvg, Undepleted,w0, PlaneGauss_, figNum, NumOfPoints, I, CrystalPropAxis, dx_prop, NumSamples, TempGrad, Lambda, Pol, refIdx, k, w, c, eps0, InteractionType, deff, A_from_I, Kappa, Print, P_from_A, samples, T)
 % Calculating the BW of the conversion
 
 %h       = waitbar(0,'calculating P2\omega vs p\omega(start)');
@@ -6,7 +6,7 @@ function [figNum] = CalculatePoutVsPin0(PinPeak, Undepleted,w0, PlaneGauss_, fig
 IinVec  = linspace(0,I.in1, NumSamples);
 P2w     = zeros(1,NumSamples);  % Memmory Allocation
 Pw      = zeros(1,NumSamples);  % Memmory Allocation
-
+Presult.avg = linspace(0,PinAvg, NumSamples);
 % Create Delta K
 [DeltaK, K, n, Omega] = DeltaK_Creator(TempGrad, InteractionType, Lambda, Pol, refIdx, k, w);
     %DeltaK = zeros(size(DeltaK)); % Perfect PM
@@ -50,6 +50,6 @@ end
 
 % close(h);
 % Print results
-[figNum] = PrintResults(PinPeak, PlaneGauss_, figNum, 0, 0, 0, Lambda, 0, 0, Presult, 0, I, 0, InteractionType, Print, NumOfPoints, 0, 0, 0, 0);
+[figNum] = PrintResults(PinAvg, PlaneGauss_, figNum, 0, 0, 0, Lambda, T, 0, Presult, 0, I, 0, InteractionType, Print, NumOfPoints, 0, 0, 0, 0);
 end
 

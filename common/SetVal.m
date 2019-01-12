@@ -3,7 +3,7 @@ function [T, I, deff, Pol, Process, Lambda,...
     NumOfPoints, CrystalPropAxis, c, eps0,...
     k, w, refIdx, A_from_I, I_from_A,...
     Kappa, w0, P_from_A, samples, PinPeak,...
-    Pulse_wdt, f, xi] = SetVal( InteractionType, Type )
+    Pulse_wdt, f, xi, PinAvg] = SetVal( InteractionType, Type )
 
 % Setting all nedded values for the simulated interaction
 
@@ -45,7 +45,7 @@ switch InteractionType
         Lambda.in1  = 1064.2e-9;   % Wavelength [m]
         Lambda.in2  = Lambda.in1;
         Lambda.out  = Lambda.in1/2;
-        PinAvg      = 50e-3;  % [W]   Luce: 940e-3[W]   Alpha Las: 100e-3[W]   fiber laser: 6[W]
+        PinAvg      = 100e-3;  % [W]   Luce: 940e-3[W]   Alpha Las: 100e-3[W]   fiber laser: 6[W]
         f           = 100;    % [Hz]  Luce: 10K[Hz]     Alpha Las: 100[Hz]     fiber laser: 20K[Hz]
         Pulse_wdt   = 1.1e-9; % [s]   Luce: 5n[sec]     Alpha Las: 1.1n[sec]   fiber laser: 10n[sec]
         PinPeak     = PinAvg/(f*Pulse_wdt);
@@ -60,9 +60,9 @@ switch InteractionType
         Walkoffangle= 0;            % [mrad]
         Orientation.theta = 90;     % [Deg]
         Orientation.phi   = 0;      % [Deg]
-        T.pm              = 149.2;% {149.4695, 148.90088}
-        T.min             = T.pm - 9; %20 start of the crystal
-        T.max             = T.pm + 9; %20 end of the crystal
+        T.pm              = 148.9;% {149.4695, 148.90088 or 148.9008618} 
+        T.min             = T.pm - 14; %20 start of the crystal
+        T.max             = T.pm + 14; %20 end of the crystal
 %         T.min             = T.pm - 0.4594;     % LBO Crystal low gradient Temperature.
 %         T.max             = T.pm + 0.4594;     % LBO Crystal high gradient Temperature.
         
